@@ -1,2 +1,2 @@
 # eshop-modular-monolith
-a modular monolith application for learning .NET, NET using Asp.Net Web API, PostgreSQL, Redis, RabbitMQ, Keycloak, Seq, Docker, MassTransit 
+A modular monolith application for learning .NET. It uses Asp.Net, Web API, PostgreSQL, Redis, RabbitMQ, Keycloak, Seq, Docker, and MassTransit.
