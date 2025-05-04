@@ -1,6 +1,6 @@
 {
-  "dotnet.defaultSolution": "eshop-modular-monoliths.sln",
-  "cSpell.words": [
-    "Bootstrapper"
-  ]
+	"dotnet.defaultSolution": "eshop-modular-monoliths.sln",
+	"cSpell.words": [
+		"Bootstrapper"
+	]
 }
