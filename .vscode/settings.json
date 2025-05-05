@@ -1,0 +1,7 @@
+{
+	"editor.tabSize": 4,
+	"dotnet.defaultSolution": "eshop-modular-monoliths.sln",
+	"cSpell.words": [
+		"Bootstrapper"
+	]
+}
