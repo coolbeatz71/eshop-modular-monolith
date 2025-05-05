@@ -1,14 +1,21 @@
+using EShop.Basket;
+using EShop.Catalog;
+using EShop.Ordering;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services
     .AddCatalogModule(builder.Configuration)
     .AddBasketModule(builder.Configuration)
-    .AddIdentityModule(builder.Configuration);
+    .AddOrderingModule(builder.Configuration);
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!!");
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipelines/middlewares.
+app.UseExceptionHandler(options => { });
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

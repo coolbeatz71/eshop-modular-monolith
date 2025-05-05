@@ -1,11 +1,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EShop.Catalog;
+namespace EShop.Basket;
 
-public static class CatalogModule
+public static class BasketModule
 {
-    public static IServiceCollection AddCatalogModule(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddBasketModule(this IServiceCollection services, IConfiguration configuration)
     {
         // Add services to the container.
         // services
@@ -15,6 +15,7 @@ public static class CatalogModule
 
         return services;
     }
+
 }
 
 
