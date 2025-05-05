@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,13 +10,17 @@ public static class BasketModule
     {
         // Add services to the container.
         // services
-        //     .AddApplicationServices().
-        //     AddInfrastructureServices()
+        //     .AddApplicationServices()
+        //     .AddInfrastructureServices()
         //     .AddApiServices();
 
         return services;
     }
 
+    public static IApplicationBuilder UseBasketModule(this IApplicationBuilder app)
+    {
+        return app;
+    }
 }
 
 
