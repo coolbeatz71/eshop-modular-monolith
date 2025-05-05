@@ -18,4 +18,10 @@ app.UseExceptionHandler(options => { });
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Configure middleware extensions for catalog, basket and ordering modules.
+app
+    .UseCatalogModule()
+    .UseBasketModule()
+    .UseOrderingModule();
+
 app.Run();
