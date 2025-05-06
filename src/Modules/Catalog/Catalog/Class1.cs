@@ -1,4 +1,4 @@
-﻿namespace Catalog;
+﻿namespace EShop.Catalog;
 
 public class Class1
 {
