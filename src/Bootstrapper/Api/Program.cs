@@ -9,10 +9,6 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!!");
 
-// Configure the HTTP request pipelines/middlewares.
-app.UseExceptionHandler(options => { });
-app.UseAuthentication();
-app.UseAuthorization();
 
 // Configure middleware extensions for catalog, basket and ordering modules.
 app
