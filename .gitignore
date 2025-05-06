@@ -58,3 +58,7 @@ nunit-*.xml
 ._.DS_Store
 **/.DS_Store
 **/._.DS_Store
+
+# IntelliJ
+**/.idea/**
+**/workspace.xml
