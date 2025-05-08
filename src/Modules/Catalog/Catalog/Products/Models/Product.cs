@@ -4,9 +4,52 @@ namespace EShop.Catalog.Products.Models;
 
 public class Product: Entity<Guid>
 {
-    public string Name { get; set; } = null!;
-    public string Description { get; set; } = null!;
-    public string ImageFile { get; set; } = null!;
-    public decimal Price { get; set; }
-    public List<string> Category { get; set; } = [];
+    public string Name { get; private set; } = null!;
+    public string Description { get; private set; } = null!;
+    public string ImageFile { get; private set; } = null!;
+    public decimal Price { get; private set; }
+    public List<string> Category { get; private set; } = [];
+
+    public static Product Create(
+        Guid id, 
+        string name, 
+        string description, 
+        string imageFile, 
+        decimal price, 
+        List<string> category
+    )
+    {
+        ArgumentException.ThrowIfNullOrEmpty(name);
+        ArgumentOutOfRangeException.ThrowIfNegative(price);
+        
+        var product = new Product
+        {
+            Id = id,
+            Name = name,
+            Description = description,
+            ImageFile = imageFile,
+            Price = price,
+            Category = category
+        };
+        
+        return product;
+    }
+
+    public void Update(
+        string name, 
+        string description, 
+        string imageFile, 
+        decimal price, 
+        List<string> category
+    )
+    {
+        ArgumentException.ThrowIfNullOrEmpty(name);
+        ArgumentOutOfRangeException.ThrowIfNegative(price);
+
+        Name = name;
+        Category = category;
+        Description = description;
+        ImageFile = imageFile;
+        Price = price;
+    }
 }
