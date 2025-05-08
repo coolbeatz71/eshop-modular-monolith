@@ -1,8 +1,9 @@
+using EShop.Catalog.Products.Events;
 using EShop.Shared.Domain;
 
 namespace EShop.Catalog.Products.Models;
 
-public class Product: Entity<Guid>
+public class Product: Aggregate<Guid>
 {
     public string Name { get; private set; } = null!;
     public string Description { get; private set; } = null!;
@@ -32,6 +33,9 @@ public class Product: Entity<Guid>
             Category = category
         };
         
+        // raise the product created domain event
+        product.AddDomainEvent(new ProductCreatedEvent(product));
+        
         return product;
     }
 
@@ -50,6 +54,10 @@ public class Product: Entity<Guid>
         Category = category;
         Description = description;
         ImageFile = imageFile;
+    
+        // raise product price changed domain event when the price changes
+        if (Price == price) return;
         Price = price;
+        AddDomainEvent(new ProductPriceChangedEvent(this));
     }
 }
