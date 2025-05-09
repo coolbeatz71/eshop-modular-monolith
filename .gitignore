@@ -63,3 +63,9 @@ nunit-*.xml
 **/.idea/**
 **/workspace.xml
 **/*.DotSettings.*
+
+# Envs
+*.env
+*.env.local
+*.env.development
+*.env.production
