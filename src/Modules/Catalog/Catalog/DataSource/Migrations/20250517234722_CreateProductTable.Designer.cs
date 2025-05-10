@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Catalog.DataSource.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20250517214444_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250517234722_CreateProductTable")]
+    partial class CreateProductTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

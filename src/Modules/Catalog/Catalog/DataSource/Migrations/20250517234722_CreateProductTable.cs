@@ -7,12 +7,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Catalog.DataSource.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class CreateProductTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.EnsureSchema(name: "catalog");
+            migrationBuilder.EnsureSchema(
+                name: "catalog");
 
             migrationBuilder.CreateTable(
                 name: "products",
@@ -39,7 +40,9 @@ namespace Catalog.DataSource.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(name: "products", schema: "catalog");
+            migrationBuilder.DropTable(
+                name: "products",
+                schema: "catalog");
         }
     }
 }
