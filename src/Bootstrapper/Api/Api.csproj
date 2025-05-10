@@ -9,4 +9,10 @@
 		<ProjectReference Include="../../Modules/Catalog/Catalog/Catalog.csproj" />
 		<ProjectReference Include="../../Modules/Ordering/Ordering/Ordering.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
 </Project>

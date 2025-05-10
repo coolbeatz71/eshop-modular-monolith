@@ -1,9 +1,9 @@
-namespace EShop.Shared;
+namespace EShop.Shared.Configurations;
 
 /// <summary>
 /// Provides access to environment-specific configuration values used in the application.
 /// </summary>
-public static class Environment
+public static class AppEnvironment
 {
     /// <summary>
     /// Retrieves postgresql database configuration values from environment variables.
@@ -27,10 +27,10 @@ public static class Environment
     /// </returns>
     public static (string? port, string? db, string? user, string? pass) Database()
     {
-        var port = System.Environment.GetEnvironmentVariable("POSTGRES_PORT");
-        var db   = System.Environment.GetEnvironmentVariable("POSTGRES_DB");
-        var user = System.Environment.GetEnvironmentVariable("POSTGRES_USER");
-        var pass = System.Environment.GetEnvironmentVariable("POSTGRES_PASSWORD");
+        var port = Environment.GetEnvironmentVariable("POSTGRES_PORT");
+        var db   = Environment.GetEnvironmentVariable("POSTGRES_DB");
+        var user = Environment.GetEnvironmentVariable("POSTGRES_USER");
+        var pass = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD");
 
         return (port, db, user, pass);
     }

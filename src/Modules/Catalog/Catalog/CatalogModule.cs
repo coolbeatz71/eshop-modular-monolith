@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using EShop.Shared.Configurations;
+
 namespace EShop.Catalog;
 
 public static class CatalogModule
@@ -17,7 +19,9 @@ public static class CatalogModule
         // Application UseCase services.
         
         // DataSource - Infrastructure services.
-        var connectionString = configuration.GetConnectionString("Database");
+        var (port, db, user, pass) = AppEnvironment.Database();
+        var connectionString = $"Host=127.0.0.1;Port={port};Database={db};Username={user};Password={pass};";
+        
         services.AddDbContext<CatalogDbContext>(options => options
             .UseNpgsql(connectionString)
             .UseSnakeCaseNamingConvention()
