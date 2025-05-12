@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using EShop.Shared.Configurations;
+using EShop.Shared.DataSource.Extensions;
 
 namespace EShop.Catalog;
 
@@ -32,16 +33,13 @@ public static class CatalogModule
 
     public static IApplicationBuilder UseCatalogModule(this IApplicationBuilder app)
     {
-        InitializeDatabaseAsync(app).GetAwaiter().GetResult();
-        return app;
-    }
-
-    private static async Task InitializeDatabaseAsync(IApplicationBuilder app)
-    {
-        using var scope = app.ApplicationServices.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<CatalogDbContext>();
+        // Configure Http request pipeline.
+        // Use Api endpoint services.
+        // Use application UseCase services.
+        // Use DataSource - Infrastructure services.
         
-        await context.Database.MigrateAsync();
+        app.UseMigration<CatalogDbContext>();
+        return app;
     }
 }
 
