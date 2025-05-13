@@ -62,3 +62,4 @@ nunit-*.xml
 # IntelliJ
 **/.idea/**
 **/workspace.xml
+**/*.DotSettings.*
