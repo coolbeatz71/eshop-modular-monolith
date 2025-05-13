@@ -1,0 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Shared.DataSource.Seed;
+
+namespace EShop.Catalog.DataSource.Seed;
+
+public class CatalogDataSeeder(CatalogDbContext dbContext) : IDataSeeder
+{
+    public async Task SeedAllAsync()
+    {
+        if (!await dbContext.Products.AnyAsync())
+        {
+            await dbContext.Products.AddRangeAsync(ContextInitializedEventData.Products);
+            await dbContext.SaveChangesAsync();
+        }
+    }
+}

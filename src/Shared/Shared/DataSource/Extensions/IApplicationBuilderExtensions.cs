@@ -21,4 +21,15 @@ public static class ApplicationBuilderExtensions
         
         await context.Database.MigrateAsync();
     }
+    
+    public static async Task SeedDatabaseAsync<TContext>(IServiceProvider serviceProvider)
+        where TContext : DbContext
+    {
+        using var scope = serviceProvider.CreateScope();
+        var seeders = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
+        foreach (var seeder in seeders)
+        {
+            await seeder.SeedAllAsync();
+        }
+    }
 }
