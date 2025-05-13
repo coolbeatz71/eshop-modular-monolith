@@ -1,4 +1,4 @@
-namespace Shared.DataSource.Seed;
+namespace EShop.Shared.DataSource.Seed;
 
 public interface IDataSeeder
 {

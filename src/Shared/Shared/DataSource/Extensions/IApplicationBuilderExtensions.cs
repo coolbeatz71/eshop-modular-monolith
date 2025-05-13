@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
+using EShop.Shared.DataSource.Seed;
+
 namespace EShop.Shared.DataSource.Extensions;
 
 public static class ApplicationBuilderExtensions
