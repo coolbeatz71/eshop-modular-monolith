@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Shared.DataSource.Seed;
+using EShop.Shared.DataSource.Seed;
 
 namespace EShop.Catalog.DataSource.Seed;
 
@@ -10,7 +10,7 @@ public class CatalogDataSeeder(CatalogDbContext dbContext) : IDataSeeder
     {
         if (!await dbContext.Products.AnyAsync())
         {
-            await dbContext.Products.AddRangeAsync(ContextInitializedEventData.Products);
+            await dbContext.Products.AddRangeAsync(InitialData.Products);
             await dbContext.SaveChangesAsync();
         }
     }
