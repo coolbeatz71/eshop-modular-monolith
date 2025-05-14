@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using EShop.Shared.DataSource.Seed;
 
 namespace EShop.Catalog.DataSource.Seed;
