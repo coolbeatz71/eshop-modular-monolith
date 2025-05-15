@@ -1,11 +1,13 @@
-using EShop.Catalog.DataSource;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using EShop.Catalog.DataSource;
+using EShop.Catalog.DataSource.Seed;
 using EShop.Shared.Configurations;
 using EShop.Shared.DataSource.Extensions;
+using EShop.Shared.DataSource.Seed;
 
 namespace EShop.Catalog;
 
@@ -27,6 +29,8 @@ public static class CatalogModule
             .UseNpgsql(connectionString)
             .UseSnakeCaseNamingConvention()
         );
+        
+        services.AddScoped<IDataSeeder, CatalogDataSeeder>();
 
         return services;
     }
