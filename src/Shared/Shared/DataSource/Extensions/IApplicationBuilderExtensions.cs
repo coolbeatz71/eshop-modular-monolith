@@ -12,6 +12,8 @@ public static class ApplicationBuilderExtensions
         where TContext : DbContext
     {
         MigrateDatabaseAsync<TContext>(app.ApplicationServices).GetAwaiter().GetResult();
+        SeedDatabaseAsync(app.ApplicationServices).GetAwaiter().GetResult();
+        
         return app;
     }
 
@@ -24,14 +26,10 @@ public static class ApplicationBuilderExtensions
         await context.Database.MigrateAsync();
     }
     
-    public static async Task SeedDatabaseAsync<TContext>(IServiceProvider serviceProvider)
-        where TContext : DbContext
+    private static async Task SeedDatabaseAsync(IServiceProvider serviceProvider)
     {
         using var scope = serviceProvider.CreateScope();
-        var seeders = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
-        foreach (var seeder in seeders)
-        {
-            await seeder.SeedAllAsync();
-        }
+        var seeders = scope.ServiceProvider.GetServices<IDataSeeder>();
+        await Task.WhenAll(seeders.Select(seeder => seeder.SeedAllAsync()));
     }
 }
