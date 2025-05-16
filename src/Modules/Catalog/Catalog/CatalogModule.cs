@@ -43,6 +43,8 @@ public static class CatalogModule
         // Use DataSource - Infrastructure services.
         
         app.UseMigration<CatalogDbContext>();
+        app.UseSeed();
+        
         return app;
     }
 }
