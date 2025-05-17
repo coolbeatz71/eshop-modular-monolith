@@ -6,7 +6,7 @@ using EShop.Shared.DataSource.Seed;
 
 namespace EShop.Shared.DataSource.Extensions;
 
-public static class ApplicationBuilderExtensions
+public static class ApplicationBuilderExtension
 {
     public static IApplicationBuilder UseMigration<TContext>(this IApplicationBuilder app) 
         where TContext : DbContext
