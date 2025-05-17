@@ -25,7 +25,23 @@ public class AuditableEntityInterceptor: SaveChangesInterceptor
         UpdateEntities(eventData.Context);
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
-
+    
+    /// <summary>
+    /// Updates audit fields (<c>CreatedBy</c>, <c>CreatedAt</c>, <c>UpdatedBy</c>, <c>UpdatedAt</c>) 
+    /// for entities tracked by the <see cref="DbContext"/> that implement <see cref="IEntity"/>.
+    /// </summary>
+    /// <param name="eventDataContext">
+    /// The <see cref="DbContext"/> instance tracking the entity changes. If <c>null</c>, the method exits early.
+    /// </param>
+    /// <remarks>
+    /// <para>
+    /// This method currently sets the <c>CreatedBy</c> and <c>UpdatedBy</c> fields to the hardcoded value "system".
+    /// It detects newly added and modified entities, and sets their timestamps and audit metadata accordingly.
+    /// </para>
+    ///
+    /// <para><b>TODO:</b> Enhance this method to retrieve the actual user who triggered the change (e.g., from an injected user context),
+    /// or identify if the change originated from a background job, system process, or another automated source.</para>
+    /// </remarks>
     private void UpdateEntities(DbContext? eventDataContext)
     {
         if(eventDataContext == null)  return;
@@ -40,7 +56,7 @@ public class AuditableEntityInterceptor: SaveChangesInterceptor
             }
             
             // the case of edit/update
-            var isNewOrUpdated = entry.State == EntityState.Added && entry.State == EntityState.Modified;
+            var isNewOrUpdated = entry.State is EntityState.Added or EntityState.Modified;
             if (!isNewOrUpdated && !entry.HasChangedOwnedEntities()) continue;
             
             entry.Entity.UpdatedBy = "system";

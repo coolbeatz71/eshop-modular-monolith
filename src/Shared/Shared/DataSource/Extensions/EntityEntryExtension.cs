@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace EShop.Shared.DataSource.Extensions;
 
-public static class EntryEntityExtensions
+public static class EntityEntryExtensions
 {
     public static bool HasChangedOwnedEntities(this EntityEntry entry) =>
         entry.References.Any(r => 
