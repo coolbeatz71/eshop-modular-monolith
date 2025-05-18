@@ -8,6 +8,7 @@ using EShop.Catalog.DataSource.Seed;
 using EShop.Shared.Configurations;
 using EShop.Shared.DataSource.Extensions;
 using EShop.Shared.DataSource.Seed;
+using EShop.Shared.DataSource.Interceptors;
 
 namespace EShop.Catalog;
 
@@ -25,10 +26,13 @@ public static class CatalogModule
         var (port, db, user, pass) = AppEnvironment.Database();
         var connectionString = $"Host=127.0.0.1;Port={port};Database={db};Username={user};Password={pass};";
         
-        services.AddDbContext<CatalogDbContext>(options => options
-            .UseNpgsql(connectionString)
-            .UseSnakeCaseNamingConvention()
-        );
+        services.AddDbContext<CatalogDbContext>(options =>
+        {
+            options.AddInterceptors(new AuditableEntityInterceptor());
+            options
+                .UseNpgsql(connectionString)
+                .UseSnakeCaseNamingConvention();
+        });
         
         services.AddScoped<IDataSeeder, CatalogDataSeeder>();
 

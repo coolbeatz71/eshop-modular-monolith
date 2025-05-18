@@ -3,7 +3,7 @@ using EShop.Shared.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace Shared.DataSource.Interceptors;
+namespace EShop.Shared.DataSource.Interceptors;
 
 public class AuditableEntityInterceptor: SaveChangesInterceptor
 {
