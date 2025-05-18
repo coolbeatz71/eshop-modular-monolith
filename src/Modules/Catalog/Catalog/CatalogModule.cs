@@ -9,6 +9,7 @@ using EShop.Shared.Configurations;
 using EShop.Shared.DataSource.Extensions;
 using EShop.Shared.DataSource.Seed;
 using EShop.Shared.DataSource.Interceptors;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace EShop.Catalog;
 
@@ -25,10 +26,13 @@ public static class CatalogModule
         // DataSource - Infrastructure services.
         var (port, db, user, pass) = AppEnvironment.Database();
         var connectionString = $"Host=127.0.0.1;Port={port};Database={db};Username={user};Password={pass};";
+
+        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
+        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
         
-        services.AddDbContext<CatalogDbContext>(options =>
+        services.AddDbContext<CatalogDbContext>((serviceProvider, options) =>
         {
-            options.AddInterceptors(new AuditableEntityInterceptor());
+            options.AddInterceptors(serviceProvider.GetServices<ISaveChangesInterceptor>());
             options
                 .UseNpgsql(connectionString)
                 .UseSnakeCaseNamingConvention();
