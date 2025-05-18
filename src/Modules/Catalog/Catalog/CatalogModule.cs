@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,10 @@ public static class CatalogModule
         // Api Endpoint services.
         
         // Application UseCase services.
+        services.AddMediatR(config =>
+        {
+            config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+        });
         
         // DataSource - Infrastructure services.
         var (port, db, user, pass) = AppEnvironment.Database();
