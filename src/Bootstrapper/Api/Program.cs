@@ -13,7 +13,6 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!!");
 
-
 // Configure middleware extensions for catalog, basket and ordering modules.
 app
     .UseCatalogModule()
