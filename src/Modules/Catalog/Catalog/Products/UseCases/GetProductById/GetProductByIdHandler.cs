@@ -3,6 +3,7 @@ using Mapster;
 using EShop.Catalog.DataSource;
 using EShop.Catalog.Products.Dtos;
 using Eshop.Shared.CQRS;
+using EShop.Shared.DataSource.Extensions;
 
 namespace EShop.Catalog.Products.UseCases.GetProductById;
 
@@ -15,10 +16,13 @@ public class GetProductByIdHandler(CatalogDbContext dbContext)
 {
     public async Task<GetProductByIdResponse> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
     {
-        var product = await dbContext.Products.FindAsync(
-            [query.ProductId],
-            cancellationToken: cancellationToken
-        );
+        // get product by id using dbContext
+        var product = await dbContext.Products
+            .SingleDefaultOrThrowAsync(
+                p => p.Id == query.ProductId, 
+                asNoTracking: true,
+                cancellationToken: cancellationToken
+            );
         
         // map product entity to ProductDto using Mapster
         var productDto = product.Adapt<ProductDto>();
