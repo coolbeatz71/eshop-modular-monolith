@@ -10,6 +10,5 @@
 	<ItemGroup>
 	  <Folder Include="Products\UseCases\GetProductByCategory\" />
 	  <Folder Include="Products\UseCases\GetProductById\" />
-	  <Folder Include="Products\UseCases\GetProducts\" />
 	</ItemGroup>
 </Project>
