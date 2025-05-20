@@ -16,7 +16,7 @@ public class UpdateProductHandler(CatalogDbContext dbContext)
     public async Task<UpdateProductResponse> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
         // check for entity in the Database
-        var product = await dbContext.FindOrThrowAsync<ProductEntity>([command.Product.Id], cancellationToken);
+        var product = await dbContext.Products.FindOrThrowAsync([command.Product.Id], cancellationToken);
         
         // create Product entity from command object
         // only if the product exist in the Database

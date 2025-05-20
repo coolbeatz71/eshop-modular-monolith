@@ -1,5 +1,4 @@
 using EShop.Catalog.DataSource;
-using EShop.Catalog.Products.Entities;
 using Eshop.Shared.CQRS;
 using EShop.Shared.DataSource.Extensions;
 
@@ -15,7 +14,7 @@ public class DeleteProductHandler(CatalogDbContext dbContext)
     public async Task<DeleteProductResponse> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
     {
         // check for entity in the Database
-        var product = await dbContext.FindOrThrowAsync<ProductEntity>([command.ProductId], cancellationToken);
+        var product = await dbContext.Products.FindOrThrowAsync([command.ProductId], cancellationToken);
         
         // delete product entity only if the product already exist in the Database
         dbContext.Products.Remove(product);
