@@ -1,6 +1,6 @@
 namespace EShop.Catalog.Products.Dtos;
 
-public record ProductDto(
+public abstract record ProductDto(
     Guid Id,
     string Name,
     string Description,
