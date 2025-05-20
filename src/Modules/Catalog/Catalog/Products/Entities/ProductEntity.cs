@@ -1,9 +1,9 @@
 using EShop.Catalog.Products.Events;
 using EShop.Shared.Domain;
 
-namespace EShop.Catalog.Products.Models;
+namespace EShop.Catalog.Products.Entities;
 
-public class Product: Aggregate<Guid>
+public class ProductEntity: Aggregate<Guid>
 {
     public string Name { get; private set; } = null!;
     public string Description { get; private set; } = null!;
@@ -11,7 +11,7 @@ public class Product: Aggregate<Guid>
     public decimal Price { get; private set; }
     public List<string> Category { get; private set; } = [];
 
-    public static Product Create(
+    public static ProductEntity Create(
         Guid id, 
         string name, 
         string description, 
@@ -23,7 +23,7 @@ public class Product: Aggregate<Guid>
         ArgumentException.ThrowIfNullOrEmpty(name);
         ArgumentOutOfRangeException.ThrowIfNegative(price);
         
-        var product = new Product
+        var product = new ProductEntity
         {
             Id = id,
             Name = name,

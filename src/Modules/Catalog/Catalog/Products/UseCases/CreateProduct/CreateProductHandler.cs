@@ -1,6 +1,6 @@
 using EShop.Catalog.DataSource;
 using EShop.Catalog.Products.Dtos;
-using EShop.Catalog.Products.Models;
+using EShop.Catalog.Products.Entities;
 using Eshop.Shared.CQRS;
 
 namespace EShop.Catalog.Products.UseCases.CreateProduct;
@@ -25,9 +25,9 @@ public class CreateProductHandler(CatalogDbContext dbContext)
         return new CreateProductResponse(product.Id);
     }
 
-    private static Product CreateNewProduct(ProductDto productDto)
+    private static ProductEntity CreateNewProduct(ProductDto productDto)
     {
-        var product = Product.Create(
+        var product = ProductEntity.Create(
            id: Guid.NewGuid(),
            name: productDto.Name,
            description: productDto.Description,

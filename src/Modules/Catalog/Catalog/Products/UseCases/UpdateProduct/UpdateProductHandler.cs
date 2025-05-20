@@ -1,6 +1,6 @@
 using EShop.Catalog.DataSource;
 using EShop.Catalog.Products.Dtos;
-using EShop.Catalog.Products.Models;
+using EShop.Catalog.Products.Entities;
 using Eshop.Shared.CQRS;
 using EShop.Shared.DataSource.Extensions;
 
@@ -16,7 +16,7 @@ public class UpdateProductHandler(CatalogDbContext dbContext)
     public async Task<UpdateProductResponse> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
         // check for entity in the Database
-        var product = await dbContext.FindOrThrowAsync<Product>([command.Product.Id], cancellationToken);
+        var product = await dbContext.FindOrThrowAsync<ProductEntity>([command.Product.Id], cancellationToken);
         
         // create Product entity from command object
         // only if the product exist in the Database
@@ -30,7 +30,7 @@ public class UpdateProductHandler(CatalogDbContext dbContext)
         return new UpdateProductResponse(true);
     }
 
-    private static void UpdateProductWithNewValues(Product actualProduct, ProductDto newProductDto)
+    private static void UpdateProductWithNewValues(ProductEntity actualProduct, ProductDto newProductDto)
     {
         actualProduct.Update(
             name: newProductDto.Name,

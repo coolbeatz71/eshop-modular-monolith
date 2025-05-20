@@ -1,6 +1,6 @@
-using EShop.Catalog.Products.Models;
+using EShop.Catalog.Products.Entities;
 using EShop.Shared.Domain;
 
 namespace EShop.Catalog.Products.Events;
 
-public record ProductPriceChangedEvent(Product Product): IDomainEvent;
+public record ProductPriceChangedEvent(ProductEntity ProductEntity): IDomainEvent;
