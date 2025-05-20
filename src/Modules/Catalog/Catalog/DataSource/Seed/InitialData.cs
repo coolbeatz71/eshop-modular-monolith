@@ -1,5 +1,5 @@
 using Bogus;
-using EShop.Catalog.Products.Models;
+using EShop.Catalog.Products.Entities;
 
 namespace EShop.Catalog.DataSource.Seed
 {
@@ -7,9 +7,9 @@ namespace EShop.Catalog.DataSource.Seed
     {
         private static readonly Faker Faker = new Faker();
 
-        public static IEnumerable<Product> Products =>
+        public static IEnumerable<ProductEntity> Products =>
             Enumerable.Range(1, 5).Select(_ =>
-                Product.Create(
+                ProductEntity.Create(
                     Guid.NewGuid(),
                     Faker.Commerce.ProductName(),
                     Faker.Commerce.ProductDescription(),

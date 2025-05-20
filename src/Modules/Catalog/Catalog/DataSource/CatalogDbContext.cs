@@ -1,12 +1,12 @@
 using System.Reflection;
-using EShop.Catalog.Products.Models;
+using EShop.Catalog.Products.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EShop.Catalog.DataSource;
 
 public class CatalogDbContext(DbContextOptions<CatalogDbContext> options) : DbContext(options)
 {
-    public DbSet<Product> Products => Set<Product>();
+    public DbSet<ProductEntity> Products => Set<ProductEntity>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
