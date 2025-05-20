@@ -7,4 +7,11 @@
 	<ItemGroup>
 		<ProjectReference Include="../../../Shared/Shared/Shared.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Products\UseCases\DeleteProduct\" />
+	  <Folder Include="Products\UseCases\GetProductByCategory\" />
+	  <Folder Include="Products\UseCases\GetProductById\" />
+	  <Folder Include="Products\UseCases\GetProducts\" />
+	  <Folder Include="Products\UseCases\UpdateProduct\" />
+	</ItemGroup>
 </Project>
