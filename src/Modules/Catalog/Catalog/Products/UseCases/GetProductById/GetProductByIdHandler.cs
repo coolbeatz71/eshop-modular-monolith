@@ -21,7 +21,8 @@ public class GetProductByIdHandler(CatalogDbContext dbContext)
             .SingleDefaultOrThrowAsync(
                 p => p.Id == query.ProductId, 
                 asNoTracking: true,
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,
+                key: query.ProductId.ToString()
             );
         
         // map product entity to ProductDto using Mapster

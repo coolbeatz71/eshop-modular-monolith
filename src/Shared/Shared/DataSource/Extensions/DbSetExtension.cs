@@ -39,7 +39,7 @@ public static class DbSetExtension
 
         return entity;
     }
-    
+
     /// <summary>
     /// Attempts to find a single entity matching the specified predicate.
     /// Throws a <see cref="NotFoundException"/> if no match is found.
@@ -48,6 +48,10 @@ public static class DbSetExtension
     /// <param name="dbSet">The <see cref="DbSet{T}"/> to query.</param>
     /// <param name="predicate">A LINQ expression to filter the entity.</param>
     /// <param name="asNoTracking">Whether to query with no-tracking behavior.</param>
+    /// <param name="key">
+    /// An optional string that represents the lookup key, used in the exception message.
+    /// If null, the predicate string representation will be used.
+    /// </param>
     /// <param name="cancellationToken">A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
     /// <returns>The found entity of type <typeparamref name="T"/>.</returns>
     /// <exception cref="NotFoundException">
@@ -57,6 +61,7 @@ public static class DbSetExtension
         this DbSet<T> dbSet,
         Expression<Func<T, bool>> predicate,
         bool asNoTracking = false,
+        string? key = null,
         CancellationToken cancellationToken = default
     ) where T : class
     {
@@ -66,7 +71,7 @@ public static class DbSetExtension
 
         if (entity is null)
         {
-            throw new NotFoundException(typeof(T).Name, predicate.ToString());
+            throw new NotFoundException(typeof(T).Name, key ?? predicate.ToString());
         }
 
         return entity;
