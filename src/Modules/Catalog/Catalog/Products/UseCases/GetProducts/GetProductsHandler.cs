@@ -18,7 +18,6 @@ public class GetProductsHandler(CatalogDbContext dbContext)
     public async Task<GetProductsResponse> Handle(GetProductsQuery query, CancellationToken cancellationToken)
     {
         // get products using dbContext
-        // return results
         var products = await dbContext.Products
             .AsNoTracking()
             .OrderBy(p => p.Name)
@@ -27,6 +26,7 @@ public class GetProductsHandler(CatalogDbContext dbContext)
         // map product entity to ProductDto using Mapster
         var productsDtos = products.Adapt<List<ProductDto>>(); 
         
+        // return response
         return new GetProductsResponse(productsDtos);
     }
 }
