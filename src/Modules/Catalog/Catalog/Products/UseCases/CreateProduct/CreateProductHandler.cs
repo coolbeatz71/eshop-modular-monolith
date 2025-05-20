@@ -5,7 +5,7 @@ using Eshop.Shared.CQRS;
 
 namespace EShop.Catalog.Products.UseCases.CreateProduct;
 
-public record CreateProductCommand(ProductDto Product): ICommand<CreateProductResponse>;
+public abstract record CreateProductCommand(ProductDto Product): ICommand<CreateProductResponse>;
 
 public record CreateProductResponse(Guid Id);
 
