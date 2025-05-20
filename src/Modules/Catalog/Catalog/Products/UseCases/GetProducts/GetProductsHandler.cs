@@ -1,8 +1,10 @@
+
+using Mapster;
+using Microsoft.EntityFrameworkCore;
+
 using EShop.Catalog.DataSource;
 using EShop.Catalog.Products.Dtos;
-using EShop.Catalog.Products.Entities;
 using Eshop.Shared.CQRS;
-using Microsoft.EntityFrameworkCore;
 
 namespace EShop.Catalog.Products.UseCases.GetProducts;
 
@@ -22,18 +24,9 @@ public class GetProductsHandler(CatalogDbContext dbContext)
             .OrderBy(p => p.Name)
             .ToListAsync(cancellationToken);
         
-        var productsDtos = MapToProductDtos(products);
+        // map product entity to ProductDto using Mapster
+        var productsDtos = products.Adapt<List<ProductDto>>(); 
         
         return new GetProductsResponse(productsDtos);
-    }
-
-    private static IEnumerable<ProductDto> MapToProductDtos(List<ProductEntity> products)
-    {
-        foreach (var product in products)
-        {
-            
-        }
-
-        return [];
     }
 }
