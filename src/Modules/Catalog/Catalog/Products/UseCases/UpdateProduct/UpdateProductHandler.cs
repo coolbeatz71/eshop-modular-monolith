@@ -13,7 +13,7 @@ namespace EShop.Catalog.Products.UseCases.UpdateProduct;
 /// <param name="Product">The product DTO containing updated product data.</param>
 /// <example>
 /// <code>
-/// var updateCommand = new UpdateProductCommand(productDto);
+/// var updateCommand = new UpdateProductCommand(id, productDto);
 /// var response = await mediator.Send(updateCommand);
 /// </code>
 /// </example>
