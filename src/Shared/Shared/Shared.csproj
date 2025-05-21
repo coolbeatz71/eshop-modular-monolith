@@ -4,6 +4,9 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
+	<PropertyGroup>
+		<RootNamespace>EShop.Shared</RootNamespace>
+	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Bogus" Version="35.6.3" />
 		<PackageReference Include="Carter" Version="8.2.1" />
