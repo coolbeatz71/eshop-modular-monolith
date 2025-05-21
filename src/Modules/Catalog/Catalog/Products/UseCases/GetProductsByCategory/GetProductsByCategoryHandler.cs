@@ -4,7 +4,7 @@ using Eshop.Shared.CQRS;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
-namespace EShop.Catalog.Products.UseCases.GetProductByCategory;
+namespace EShop.Catalog.Products.UseCases.GetProductsByCategory;
 
 /// <summary>
 /// Query to retrieve all products that belong to a specified category.
@@ -19,7 +19,7 @@ namespace EShop.Catalog.Products.UseCases.GetProductByCategory;
 /// var result = await mediator.Send(query);
 /// </code>
 /// </example>
-public abstract record GetProductsByCategoryQuery(string Category) : IQuery<GetProductsByCategoryResult>;
+public record GetProductsByCategoryQuery(string Category) : IQuery<GetProductsByCategoryResult>;
 
 /// <summary>
 /// The response containing a list of products filtered by category.
