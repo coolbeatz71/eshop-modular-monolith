@@ -2,7 +2,7 @@ using EShop.Shared.Metadata;
 
 namespace EShop.Catalog.Products.UseCases.DeleteProduct;
 
-public static class ProductRoutes
+public static class RouteMetaField
 {
     public static readonly RouteMetadata Delete = new(
         name: "DeleteProduct",

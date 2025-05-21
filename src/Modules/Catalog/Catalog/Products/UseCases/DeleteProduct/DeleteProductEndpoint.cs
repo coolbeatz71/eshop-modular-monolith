@@ -23,9 +23,9 @@ public class DeleteProductEndpoint: ICarterModule
 
                 return Results.Ok(response);
             })
-            .WithName(ProductRoutes.Delete.Name)
-            .WithSummary(ProductRoutes.Delete.Summary)
-            .WithDescription(ProductRoutes.Delete.Description)
+            .WithName(RouteMetaField.Delete.Name)
+            .WithSummary(RouteMetaField.Delete.Summary)
+            .WithDescription(RouteMetaField.Delete.Description)
             .Produces<DeleteProductResponse>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound);

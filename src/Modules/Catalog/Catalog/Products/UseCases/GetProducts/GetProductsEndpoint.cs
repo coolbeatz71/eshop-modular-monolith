@@ -26,9 +26,9 @@ public class GetProductsEndpoint: CarterModule
                 
                 return Results.Ok(response);
             })
-            .WithName(ProductRoutes.GetAll.Name)
-            .WithSummary(ProductRoutes.GetAll.Summary)
-            .WithDescription(ProductRoutes.GetAll.Description)
+            .WithName(RouteMetaField.GetAll.Name)
+            .WithSummary(RouteMetaField.GetAll.Summary)
+            .WithDescription(RouteMetaField.GetAll.Description)
             .Produces<GetProductsResponse>()
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound);

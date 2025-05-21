@@ -2,7 +2,7 @@ using EShop.Shared.Metadata;
 
 namespace EShop.Catalog.Products.UseCases.UpdateProduct;
 
-public static class ProductRoutes
+public static class RouteMetaField
 {
     public static readonly RouteMetadata Update = new(
         name: "UpdateProduct",

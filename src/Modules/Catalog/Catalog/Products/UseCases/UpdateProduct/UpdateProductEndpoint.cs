@@ -26,9 +26,9 @@ public class UpdateProductEndpoint: ICarterModule
 
                 return Results.Ok(response);
             })
-                .WithName(ProductRoutes.Update.Name)
-                .WithSummary(ProductRoutes.Update.Summary)
-                .WithDescription(ProductRoutes.Update.Description)
+                .WithName(RouteMetaField.Update.Name)
+                .WithSummary(RouteMetaField.Update.Summary)
+                .WithDescription(RouteMetaField.Update.Description)
                 .Produces<UpdateProductResponse>()
                 .ProducesProblem(StatusCodes.Status400BadRequest)
                 .ProducesProblem(StatusCodes.Status404NotFound);

@@ -26,9 +26,9 @@ public class CreateProductEndpoint: ICarterModule
 
                 return Results.Created($"/products/{response.Id}", response);
             })
-                .WithName(ProductRoutes.Create.Name)
-                .WithSummary(ProductRoutes.Create.Summary)
-                .WithDescription(ProductRoutes.Create.Description)
+                .WithName(RouteMetaField.Create.Name)
+                .WithSummary(RouteMetaField.Create.Summary)
+                .WithDescription(RouteMetaField.Create.Description)
                 .Produces<CreateProductResponse>(StatusCodes.Status201Created)
                 .ProducesProblem(StatusCodes.Status400BadRequest);
     }
