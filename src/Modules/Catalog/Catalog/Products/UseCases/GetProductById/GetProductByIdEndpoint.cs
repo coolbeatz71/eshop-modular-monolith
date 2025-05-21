@@ -1,10 +1,11 @@
 using Carter;
-using EShop.Catalog.Products.Dtos;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+
+using EShop.Catalog.Products.Dtos;
 
 namespace EShop.Catalog.Products.UseCases.GetProductById;
 

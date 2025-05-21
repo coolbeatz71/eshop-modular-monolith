@@ -12,9 +12,9 @@ namespace EShop.Catalog.Products.UseCases.GetProducts;
 public abstract record GetProductsResponse(IEnumerable<ProductDto> Products);
 
 //TODO: should add pagination implementation
-public class GetProductsEndpoint: CarterModule
+public class GetProductsEndpoint: ICarterModule
 {
-    public override void AddRoutes(IEndpointRouteBuilder app)
+    public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapGet("/products", async (ISender sender) =>
             {
