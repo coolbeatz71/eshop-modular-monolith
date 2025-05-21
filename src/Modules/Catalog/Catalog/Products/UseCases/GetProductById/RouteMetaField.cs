@@ -4,7 +4,7 @@ namespace EShop.Catalog.Products.UseCases.GetProductById;
 
 public class RouteMetaField
 {
-    public static readonly RouteMetadata GetAll = new(
+    public static readonly RouteMetadata GetById = new(
         name: "GetProductById",
         summary: "Retrieve a product by its unique identifier.",
         description: """

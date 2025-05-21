@@ -21,7 +21,7 @@ namespace EShop.Catalog.Products.UseCases.GetProductById;
 /// var result = await mediator.Send(query);
 /// </code>
 /// </example>
-public abstract record GetProductByIdQuery(Guid ProductId) : IQuery<GetProductByIdResult>;
+public record GetProductByIdQuery(Guid ProductId) : IQuery<GetProductByIdResult>;
 
 /// <summary>
 /// The response containing the requested product information.
