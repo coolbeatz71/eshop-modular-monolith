@@ -19,7 +19,7 @@ namespace EShop.Catalog.Products.UseCases.GetProducts;
 /// var result = await mediator.Send(query);
 /// </code>
 /// </example>
-public abstract record GetProductsQuery() : IQuery<GetProductsResult>;
+public record GetProductsQuery() : IQuery<GetProductsResult>;
 
 /// <summary>
 /// The response containing a collection of all products.
