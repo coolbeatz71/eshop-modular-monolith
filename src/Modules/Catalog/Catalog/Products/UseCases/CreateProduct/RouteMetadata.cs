@@ -1,6 +1,6 @@
 using EShop.Shared.Metadata;
 
-namespace Catalog.Products.UseCases.CreateProduct;
+namespace EShop.Catalog.Products.UseCases.CreateProduct;
 
 public static partial class ProductRoutes
 {
