@@ -14,27 +14,47 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace EShop.Catalog;
 
+/// <summary>
+/// Provides extension methods to register and configure the Catalog module's services and middleware.
+/// </summary>
 public static class CatalogModule
 {
+    /// <summary>
+    /// Adds the Catalog module's services to the dependency injection container.
+    /// </summary>
+    /// <param name="services">The service collection to register services into.</param>
+    /// <param name="configuration">The application configuration instance.</param>
+    /// <returns>The updated <see cref="IServiceCollection"/> for chaining.</returns>
+    /// <remarks>
+    /// Registers MediatR handlers, database context with interceptors, and a data seeder.
+    /// </remarks>
+    /// <example>
+    /// <code>
+    /// builder.Services.AddCatalogModule(builder.Configuration);
+    /// </code>
+    /// </example>
     public static IServiceCollection AddCatalogModule(this IServiceCollection services, IConfiguration configuration)
     {
         // Add services to the container.
-        
         // Api Endpoint services.
-        
         // Application UseCase services.
+        // DataSource - Infrastructure services.
+        
+        // Add MediatR handlers from this assembly.
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
         });
-        
-        // DataSource - Infrastructure services.
+
+        // Read DB connection info from environment.
         var (port, db, user, pass) = AppEnvironment.Database();
         var connectionString = $"Host=127.0.0.1;Port={port};Database={db};Username={user};Password={pass};";
 
+        // Register EF Core interceptors.
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
-        
+
+        // Register CatalogDbContext with Postgres provider and naming convention.
         services.AddDbContext<CatalogDbContext>((serviceProvider, options) =>
         {
             options.AddInterceptors(serviceProvider.GetServices<ISaveChangesInterceptor>());
@@ -42,12 +62,26 @@ public static class CatalogModule
                 .UseNpgsql(connectionString)
                 .UseSnakeCaseNamingConvention();
         });
-        
+
+        // Register data seeder for initial data population.
         services.AddScoped<IDataSeeder, CatalogDataSeeder>();
 
         return services;
     }
 
+    /// <summary>
+    /// Configures the Catalog module's middleware in the application pipeline.
+    /// </summary>
+    /// <param name="app">The application builder.</param>
+    /// <returns>The updated <see cref="IApplicationBuilder"/> for chaining.</returns>
+    /// <remarks>
+    /// Applies pending EF Core migrations and executes the data seeder.
+    /// </remarks>
+    /// <example>
+    /// <code>
+    /// app.UseCatalogModule();
+    /// </code>
+    /// </example>
     public static IApplicationBuilder UseCatalogModule(this IApplicationBuilder app)
     {
         // Configure Http request pipeline.
@@ -57,9 +91,7 @@ public static class CatalogModule
         
         app.UseMigration<CatalogDbContext>();
         app.UseSeed();
-        
+
         return app;
     }
 }
-
-
