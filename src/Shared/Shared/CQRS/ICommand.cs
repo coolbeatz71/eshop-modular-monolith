@@ -13,4 +13,4 @@ public interface ICommand : ICommand<Unit>;
 /// Extends <see cref="IRequest{TResponse}"/> from MediatR.
 /// </summary>
 /// <typeparam name="TResponse">The type of the response returned when the command is handled.</typeparam>
-public interface ICommand<out TResponse> : IRequest<TResponse>;
+public interface ICommand<out TResult> : IRequest<TResult>;

@@ -10,7 +10,7 @@ namespace EShop.Catalog.Products.UseCases.CreateProduct;
 /// </summary>
 /// <param name="Product">The data required to create the product.</param>
 /// <remarks>
-/// Implements <see cref="ICommand{TResponse}"/> to be used with MediatR for CQRS-based handling.
+/// Implements <see cref="ICommand{TResult}"/> to be used with MediatR for CQRS-based handling.
 /// </remarks>
 /// <example>
 /// <code>
@@ -18,7 +18,7 @@ namespace EShop.Catalog.Products.UseCases.CreateProduct;
 /// var result = await mediator.Send(command);
 /// </code>
 /// </example>
-public abstract record CreateProductCommand(ProductDto Product) : ICommand<CreateProductResponse>;
+public abstract record CreateProductCommand(ProductDto Product) : ICommand<CreateProductResult>;
 
 /// <summary>
 /// The response returned after successfully creating a product.
@@ -26,10 +26,10 @@ public abstract record CreateProductCommand(ProductDto Product) : ICommand<Creat
 /// <param name="Id">The unique identifier of the newly created product.</param>
 /// <example>
 /// <code>
-/// var response = new CreateProductResponse(productId);
+/// var response = new CreateProductResult(productId);
 /// </code>
 /// </example>
-public record CreateProductResponse(Guid Id);
+public record CreateProductResult(Guid Id);
 
 /// <summary>
 /// Handles <see cref="CreateProductCommand"/> by persisting the product in the database and returning its ID.
@@ -45,15 +45,15 @@ public record CreateProductResponse(Guid Id);
 /// </code>
 /// </example>
 public class CreateProductHandler(CatalogDbContext dbContext)
-    : ICommandHandler<CreateProductCommand, CreateProductResponse>
+    : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     /// <summary>
     /// Handles the <see cref="CreateProductCommand"/> by creating and saving a new product.
     /// </summary>
     /// <param name="command">The command containing product details.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <returns>A <see cref="CreateProductResponse"/> with the new product's ID.</returns>
-    public async Task<CreateProductResponse> Handle(CreateProductCommand command, CancellationToken cancellationToken)
+    /// <returns>A <see cref="CreateProductResult"/> with the new product's ID.</returns>
+    public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
         // Create Product entity from command object
         var product = CreateNewProduct(command.Product);
@@ -63,7 +63,7 @@ public class CreateProductHandler(CatalogDbContext dbContext)
         await dbContext.SaveChangesAsync(cancellationToken);
 
         // Return response
-        return new CreateProductResponse(product.Id);
+        return new CreateProductResult(product.Id);
     }
 
     /// <summary>

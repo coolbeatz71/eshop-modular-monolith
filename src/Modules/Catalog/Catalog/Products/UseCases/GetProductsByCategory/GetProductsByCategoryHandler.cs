@@ -19,7 +19,7 @@ namespace EShop.Catalog.Products.UseCases.GetProductByCategory;
 /// var result = await mediator.Send(query);
 /// </code>
 /// </example>
-public abstract record GetProductsByCategoryQuery(string Category) : IQuery<GetProductsByCategoryResponse>;
+public abstract record GetProductsByCategoryQuery(string Category) : IQuery<GetProductsByCategoryResult>;
 
 /// <summary>
 /// The response containing a list of products filtered by category.
@@ -27,10 +27,10 @@ public abstract record GetProductsByCategoryQuery(string Category) : IQuery<GetP
 /// <param name="Products">A collection of product DTOs belonging to the given category.</param>
 /// <example>
 /// <code>
-/// var response = new GetProductsByCategoryResponse(filteredProducts);
+/// var response = new GetProductsByCategoryResult(filteredProducts);
 /// </code>
 /// </example>
-public record GetProductsByCategoryResponse(IEnumerable<ProductDto> Products);
+public record GetProductsByCategoryResult(IEnumerable<ProductDto> Products);
 
 /// <summary>
 /// Handles the <see cref="GetProductsByCategoryQuery"/> by retrieving products from the database that belong to a specified category.
@@ -48,7 +48,7 @@ public record GetProductsByCategoryResponse(IEnumerable<ProductDto> Products);
 /// </code>
 /// </example>
 public class GetProductsByCategoryHandler(CatalogDbContext dbContext)
-    : IQueryHandler<GetProductsByCategoryQuery, GetProductsByCategoryResponse>
+    : IQueryHandler<GetProductsByCategoryQuery, GetProductsByCategoryResult>
 {
     /// <summary>
     /// Executes the query to retrieve products based on the provided category.
@@ -56,9 +56,9 @@ public class GetProductsByCategoryHandler(CatalogDbContext dbContext)
     /// <param name="query">The category filter query.</param>
     /// <param name="cancellationToken">A cancellation token to cancel the query if needed.</param>
     /// <returns>
-    /// A <see cref="GetProductsByCategoryResponse"/> containing filtered products.
+    /// A <see cref="GetProductsByCategoryResult"/> containing filtered products.
     /// </returns>
-    public async Task<GetProductsByCategoryResponse> Handle(GetProductsByCategoryQuery query, CancellationToken cancellationToken)
+    public async Task<GetProductsByCategoryResult> Handle(GetProductsByCategoryQuery query, CancellationToken cancellationToken)
     {
         // Get products by category using dbContext
         var products = await dbContext.Products
@@ -71,6 +71,6 @@ public class GetProductsByCategoryHandler(CatalogDbContext dbContext)
         var productsDtos = products.Adapt<List<ProductDto>>();
         
         // Return response
-        return new GetProductsByCategoryResponse(productsDtos);
+        return new GetProductsByCategoryResult(productsDtos);
     }
 }

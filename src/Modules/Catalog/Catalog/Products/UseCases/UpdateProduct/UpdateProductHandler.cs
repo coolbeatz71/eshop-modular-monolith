@@ -16,7 +16,7 @@ namespace EShop.Catalog.Products.UseCases.UpdateProduct;
 /// var response = await mediator.Send(updateCommand);
 /// </code>
 /// </example>
-public abstract record UpdateProductCommand(ProductDto Product) : ICommand<UpdateProductResponse>;
+public abstract record UpdateProductCommand(ProductDto Product) : ICommand<UpdateProductResult>;
 
 /// <summary>
 /// Response indicating whether the update operation was successful.
@@ -30,7 +30,7 @@ public abstract record UpdateProductCommand(ProductDto Product) : ICommand<Updat
 /// }
 /// </code>
 /// </example>
-public record UpdateProductResponse(bool IsSuccess);
+public record UpdateProductResult(bool IsSuccess);
 
 /// <summary>
 /// Handles updating an existing product in the database.
@@ -47,7 +47,7 @@ public record UpdateProductResponse(bool IsSuccess);
 /// </code>
 /// </example>
 public class UpdateProductHandler(CatalogDbContext dbContext)
-    : ICommandHandler<UpdateProductCommand, UpdateProductResponse>
+    : ICommandHandler<UpdateProductCommand, UpdateProductResult>
 {
     /// <summary>
     /// Handles the update command by applying new values to an existing product and saving changes.
@@ -58,7 +58,7 @@ public class UpdateProductHandler(CatalogDbContext dbContext)
     /// <exception cref="KeyNotFoundException">Thrown when the product with the specified ID is not found in the database.</exception>
     /// <exception cref="ArgumentException">Thrown when required properties in the product DTO are null or empty.</exception>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when the product price is negative.</exception>
-    public async Task<UpdateProductResponse> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
+    public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
         // check for entity in the Database
         var product = await dbContext.Products.FindOrThrowAsync([command.Product.Id], cancellationToken);
@@ -71,7 +71,7 @@ public class UpdateProductHandler(CatalogDbContext dbContext)
         await dbContext.SaveChangesAsync(cancellationToken);
 
         // return response indicating success
-        return new UpdateProductResponse(true);
+        return new UpdateProductResult(true);
     }
 
     /// <summary>

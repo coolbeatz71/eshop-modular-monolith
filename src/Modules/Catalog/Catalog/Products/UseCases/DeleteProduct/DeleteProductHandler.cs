@@ -18,7 +18,7 @@ namespace EShop.Catalog.Products.UseCases.DeleteProduct;
 /// var result = await mediator.Send(command);
 /// </code>
 /// </example>
-public abstract record DeleteProductCommand(Guid ProductId) : ICommand<DeleteProductResponse>;
+public abstract record DeleteProductCommand(Guid ProductId) : ICommand<DeleteProductResult>;
 
 /// <summary>
 /// Response indicating whether the product was successfully deleted.
@@ -26,10 +26,10 @@ public abstract record DeleteProductCommand(Guid ProductId) : ICommand<DeletePro
 /// <param name="IsSuccess">True if the product was deleted; otherwise, false.</param>
 /// <example>
 /// <code>
-/// var response = new DeleteProductResponse(true);
+/// var response = new DeleteProductResult(true);
 /// </code>
 /// </example>
-public record DeleteProductResponse(bool IsSuccess);
+public record DeleteProductResult(bool IsSuccess);
 
 /// <summary>
 /// Handles <see cref="DeleteProductCommand"/> by removing the product from the database.
@@ -45,7 +45,7 @@ public record DeleteProductResponse(bool IsSuccess);
 /// </code>
 /// </example>
 public class DeleteProductHandler(CatalogDbContext dbContext) 
-    : ICommandHandler<DeleteProductCommand, DeleteProductResponse>
+    : ICommandHandler<DeleteProductCommand, DeleteProductResult>
 {
     /// <summary>
     /// Handles the <see cref="DeleteProductCommand"/> by locating and removing the product from the database.
@@ -53,10 +53,10 @@ public class DeleteProductHandler(CatalogDbContext dbContext)
     /// <param name="command">The command containing the product ID.</param>
     /// <param name="cancellationToken">A token to observe for cancellation requests.</param>
     /// <returns>
-    /// A <see cref="DeleteProductResponse"/> indicating the result of the delete operation.
+    /// A <see cref="DeleteProductResult"/> indicating the result of the delete operation.
     /// </returns>
     /// <exception cref="NotFoundException">Thrown if the product is not found in the database.</exception>
-    public async Task<DeleteProductResponse> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
+    public async Task<DeleteProductResult> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
     {
         // Check if entity exists in the database
         var product = await dbContext.Products.FindOrThrowAsync([command.ProductId], cancellationToken);
@@ -66,6 +66,6 @@ public class DeleteProductHandler(CatalogDbContext dbContext)
         await dbContext.SaveChangesAsync(cancellationToken);
 
         // Return success response
-        return new DeleteProductResponse(true);
+        return new DeleteProductResult(true);
     }
 }

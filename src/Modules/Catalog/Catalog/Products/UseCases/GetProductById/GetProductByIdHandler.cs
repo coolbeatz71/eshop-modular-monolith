@@ -21,7 +21,7 @@ namespace EShop.Catalog.Products.UseCases.GetProductById;
 /// var result = await mediator.Send(query);
 /// </code>
 /// </example>
-public abstract record GetProductByIdQuery(Guid ProductId) : IQuery<GetProductByIdResponse>;
+public abstract record GetProductByIdQuery(Guid ProductId) : IQuery<GetProductByIdResult>;
 
 /// <summary>
 /// The response containing the requested product information.
@@ -29,10 +29,10 @@ public abstract record GetProductByIdQuery(Guid ProductId) : IQuery<GetProductBy
 /// <param name="Product">The product details mapped to <see cref="ProductDto"/>.</param>
 /// <example>
 /// <code>
-/// var response = new GetProductByIdResponse(productDto);
+/// var response = new GetProductByIdResult(productDto);
 /// </code>
 /// </example>
-public record GetProductByIdResponse(ProductDto Product);
+public record GetProductByIdResult(ProductDto Product);
 
 /// <summary>
 /// Handles the <see cref="GetProductByIdQuery"/> by retrieving and mapping the product from the database.
@@ -48,7 +48,7 @@ public record GetProductByIdResponse(ProductDto Product);
 /// </code>
 /// </example>
 public class GetProductByIdHandler(CatalogDbContext dbContext)
-    : IQueryHandler<GetProductByIdQuery, GetProductByIdResponse>
+    : IQueryHandler<GetProductByIdQuery, GetProductByIdResult>
 {
     /// <summary>
     /// Handles the query by retrieving the product from the database and mapping it to a DTO.
@@ -56,12 +56,12 @@ public class GetProductByIdHandler(CatalogDbContext dbContext)
     /// <param name="query">The query object containing the product ID.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>
-    /// A <see cref="GetProductByIdResponse"/> containing the mapped product.
+    /// A <see cref="GetProductByIdResult"/> containing the mapped product.
     /// </returns>
     /// <exception cref="NotFoundException">
     /// Thrown if the product with the specified ID is not found.
     /// </exception>
-    public async Task<GetProductByIdResponse> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
+    public async Task<GetProductByIdResult> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
     {
         // Get product by id using dbContext
         var product = await dbContext.Products
@@ -75,6 +75,6 @@ public class GetProductByIdHandler(CatalogDbContext dbContext)
         // Map product entity to ProductDto using Mapster
         var productDto = product.Adapt<ProductDto>();
 
-        return new GetProductByIdResponse(productDto);
+        return new GetProductByIdResult(productDto);
     }
 }

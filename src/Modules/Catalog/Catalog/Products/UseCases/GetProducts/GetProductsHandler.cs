@@ -19,7 +19,7 @@ namespace EShop.Catalog.Products.UseCases.GetProducts;
 /// var result = await mediator.Send(query);
 /// </code>
 /// </example>
-public abstract record GetProductsQuery() : IQuery<GetProductsResponse>;
+public abstract record GetProductsQuery() : IQuery<GetProductsResult>;
 
 /// <summary>
 /// The response containing a collection of all products.
@@ -27,10 +27,10 @@ public abstract record GetProductsQuery() : IQuery<GetProductsResponse>;
 /// <param name="Products">A list of product DTOs returned from the query.</param>
 /// <example>
 /// <code>
-/// var response = new GetProductsResponse(productList);
+/// var response = new GetProductsResult(productList);
 /// </code>
 /// </example>
-public record GetProductsResponse(IEnumerable<ProductDto> Products);
+public record GetProductsResult(IEnumerable<ProductDto> Products);
 
 /// <summary>
 /// Handles the <see cref="GetProductsQuery"/> by retrieving all products from the database and mapping them to DTOs.
@@ -47,7 +47,7 @@ public record GetProductsResponse(IEnumerable<ProductDto> Products);
 /// </code>
 /// </example>
 public class GetProductsHandler(CatalogDbContext dbContext)
-    : IQueryHandler<GetProductsQuery, GetProductsResponse>
+    : IQueryHandler<GetProductsQuery, GetProductsResult>
 {
     /// <summary>
     /// Handles the query to retrieve all products from the database.
@@ -55,9 +55,9 @@ public class GetProductsHandler(CatalogDbContext dbContext)
     /// <param name="query">The query request object (no parameters required).</param>
     /// <param name="cancellationToken">A token to cancel the operation if needed.</param>
     /// <returns>
-    /// A <see cref="GetProductsResponse"/> containing a list of product DTOs.
+    /// A <see cref="GetProductsResult"/> containing a list of product DTOs.
     /// </returns>
-    public async Task<GetProductsResponse> Handle(GetProductsQuery query, CancellationToken cancellationToken)
+    public async Task<GetProductsResult> Handle(GetProductsQuery query, CancellationToken cancellationToken)
     {
         // Get products using dbContext
         var products = await dbContext.Products
@@ -69,6 +69,6 @@ public class GetProductsHandler(CatalogDbContext dbContext)
         var productsDtos = products.Adapt<List<ProductDto>>(); 
         
         // Return response
-        return new GetProductsResponse(productsDtos);
+        return new GetProductsResult(productsDtos);
     }
 }
