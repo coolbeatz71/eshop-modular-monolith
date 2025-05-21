@@ -1,10 +1,10 @@
 using EShop.Shared.Metadata;
 
-namespace EShop.Catalog.Products.UseCases.CreateProduct;
+namespace Catalog.Products.UseCases.CreateProduct;
 
-public static class ProductRoutes
+public static partial class ProductRoutes
 {
-    public static readonly RouteMetadata CreateProductRouteMetadata = new(
+    public static readonly RouteMetadata Create = new(
         name: "CreateProduct",
         summary: "Register a new product in the catalog.",
         description: """
@@ -17,4 +17,3 @@ public static class ProductRoutes
         """
     );
 }
-
