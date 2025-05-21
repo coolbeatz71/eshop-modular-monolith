@@ -2,7 +2,7 @@ using EShop.Shared.Metadata;
 
 namespace EShop.Catalog.Products.UseCases.CreateProduct;
 
-public static partial class ProductRoutes
+public static class ProductRoutes
 {
     public static readonly RouteMetadata Create = new(
         name: "CreateProduct",

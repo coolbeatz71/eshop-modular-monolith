@@ -2,11 +2,11 @@ using EShop.Shared.Metadata;
 
 namespace EShop.Catalog.Products.UseCases.UpdateProduct;
 
-public static partial class ProductRoutes
+public static class ProductRoutes
 {
     public static readonly RouteMetadata Update = new(
         name: "UpdateProduct",
-        summary: "Update an existing product in the catalog.",
+        summary: "Updates an existing product in the catalog.",
         description: """
              Accepts a product ID and updated details. If the product exists, its data is updated.
 
