@@ -1,15 +1,39 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-
 using EShop.Shared.Domain;
 
 namespace EShop.Shared.DataSource.Interceptors;
 
-public class DispatchDomainEventsInterceptor(IMediator mediator): SaveChangesInterceptor
+/// <summary>
+/// An EF Core SaveChanges interceptor that dispatches domain events from aggregate roots
+/// before the database save operation is completed.
+/// </summary>
+/// <remarks>
+/// This interceptor inspects tracked entities implementing <see cref="IAggregate"/> that
+/// contain domain events, publishes those events via MediatR, and clears them afterward.
+/// </remarks>
+public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
 {
+    private readonly IMediator _mediator;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DispatchDomainEventsInterceptor"/> class.
+    /// </summary>
+    /// <param name="mediator">The MediatR instance used to publish domain events.</param>
+    public DispatchDomainEventsInterceptor(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
+    /// <summary>
+    /// Intercepts the synchronous save operation and dispatches domain events before saving.
+    /// </summary>
+    /// <param name="eventData">Contextual information about the save operation.</param>
+    /// <param name="result">The interception result.</param>
+    /// <returns>The modified interception result.</returns>
     public override InterceptionResult<int> SavingChanges(
-        DbContextEventData eventData, 
+        DbContextEventData eventData,
         InterceptionResult<int> result
     )
     {
@@ -17,38 +41,60 @@ public class DispatchDomainEventsInterceptor(IMediator mediator): SaveChangesInt
         return base.SavingChanges(eventData, result);
     }
 
+    /// <summary>
+    /// Intercepts the asynchronous save operation and dispatches domain events before saving.
+    /// </summary>
+    /// <param name="eventData">Contextual information about the save operation.</param>
+    /// <param name="result">The interception result.</param>
+    /// <param name="cancellationToken">A cancellation token.</param>
+    /// <returns>A task representing the asynchronous operation with the interception result.</returns>
     public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(
-        DbContextEventData eventData, 
+        DbContextEventData eventData,
         InterceptionResult<int> result,
-        CancellationToken cancellationToken = new CancellationToken()
+        CancellationToken cancellationToken = default
     )
     {
         await DispatchDomainEvents(eventData.Context);
         return await base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 
+    /// <summary>
+    /// Collects and publishes domain events from tracked aggregate roots.
+    /// </summary>
+    /// <param name="eventDataContext">The current DbContext instance.</param>
+    /// <returns>A task that completes once all domain events are published.</returns>
+    /// <remarks>
+    /// This method performs the following steps:
+    /// <list type="number">
+    /// <item>Finds all aggregates implementing <see cref="IAggregate"/> with pending domain events.</item>
+    /// <item>Collects and flattens all domain events into a single list.</item>
+    /// <item>Clears domain events from the aggregate roots.</item>
+    /// <item>Publishes each event using the <see cref="IMediator"/> instance.</item>
+    /// </list>
+    /// </remarks>
     private async Task DispatchDomainEvents(DbContext? eventDataContext)
     {
-        if(eventDataContext == null)  return;
-        
-        // get aggregates list
+        if (eventDataContext == null) return;
+
+        // Step 1: Get aggregates with domain events
         var aggregates = eventDataContext.ChangeTracker
             .Entries<IAggregate>()
-            .Where(x => x.Entity.DomainEvents.Any())
-            .Select(x => x.Entity);
-        
-        // get domainEvents from aggregates
-        var enumerable = aggregates.ToList();
-        var domainEvents = enumerable
-            .SelectMany(x => x.DomainEvents)
+            .Where(entry => entry.Entity.DomainEvents.Any())
+            .Select(entry => entry.Entity)
             .ToList();
-        
-        // clear domain events
-        enumerable.ToList().ForEach(x => x.ClearDomainEvents());
 
+        // Step 2: Extract and flatten domain events
+        var domainEvents = aggregates
+            .SelectMany(aggregate => aggregate.DomainEvents)
+            .ToList();
+
+        // Step 3: Clear domain events from aggregates
+        aggregates.ForEach(aggregate => aggregate.ClearDomainEvents());
+
+        // Step 4: Publish each domain event using MediatR
         foreach (var domainEvent in domainEvents)
         {
-            await mediator.Publish(domainEvent);
+            await _mediator.Publish(domainEvent);
         }
     }
 }

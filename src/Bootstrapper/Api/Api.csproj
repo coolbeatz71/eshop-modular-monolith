@@ -4,6 +4,9 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
+    <PropertyGroup>
+        <RootNamespace>EShop.Api</RootNamespace>
+    </PropertyGroup>
     <ItemGroup>
 		<ProjectReference Include="../../Modules/Basket/Basket/Basket.csproj" />
 		<ProjectReference Include="../../Modules/Catalog/Catalog/Catalog.csproj" />

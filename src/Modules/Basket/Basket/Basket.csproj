@@ -4,6 +4,9 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
+	<PropertyGroup>
+		<RootNamespace>EShop.Basket</RootNamespace>
+	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="../../../Shared/Shared/Shared.csproj" />
 	</ItemGroup>
