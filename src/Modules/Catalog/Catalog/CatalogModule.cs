@@ -51,11 +51,11 @@ public static class CatalogModule
         var connectionString = $"Host=127.0.0.1;Port={port};Database={db};Username={user};Password={pass};";
 
         // Register EF Core interceptors.
-        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
-        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+        services.AddSingleton<ISaveChangesInterceptor, AuditableEntityInterceptor>();
+        services.AddSingleton<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
         // Register CatalogDbContext with Postgres provider and naming convention.
-        services.AddDbContext<CatalogDbContext>((serviceProvider, options) =>
+        services.AddDbContextPool<CatalogDbContext>((serviceProvider, options) =>
         {
             options.AddInterceptors(serviceProvider.GetServices<ISaveChangesInterceptor>());
             options
