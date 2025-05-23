@@ -60,10 +60,12 @@ public class GetProductsByCategoryHandler(CatalogDbContext dbContext)
     /// </returns>
     public async Task<GetProductsByCategoryResult> Handle(GetProductsByCategoryQuery query, CancellationToken cancellationToken)
     {
-        // Get products by category using dbContext
+        // Get products by category using dbContext and fuzzy searching
         var products = await dbContext.Products
             .AsNoTracking()
-            .Where(p => p.Category.Contains(query.Category))
+            .Where(p =>
+                    p.Category.Any(c => EF.Functions.ILike(c, $"%{query.Category}%"))
+                )
             .OrderBy(p => p.Name)
             .ToListAsync(cancellationToken);
         
