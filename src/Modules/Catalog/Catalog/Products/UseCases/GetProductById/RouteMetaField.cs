@@ -2,7 +2,7 @@ using EShop.Shared.Metadata;
 
 namespace EShop.Catalog.Products.UseCases.GetProductById;
 
-public class RouteMetaField
+public static class RouteMetaField
 {
     public static readonly RouteMetadata GetById = new(
         name: "GetProductById",

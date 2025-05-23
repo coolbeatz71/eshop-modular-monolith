@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace EShop.Catalog.Products.UseCases.DeleteProduct;
 
-public abstract record DeleteProductResponse(bool IsSuccess);
+public record DeleteProductResponse(bool IsSuccess);
 
 public class DeleteProductEndpoint: ICarterModule
 {

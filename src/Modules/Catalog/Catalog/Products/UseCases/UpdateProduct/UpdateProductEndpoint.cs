@@ -9,8 +9,8 @@ using EShop.Catalog.Products.Dtos;
 
 namespace EShop.Catalog.Products.UseCases.UpdateProduct;
 
-public abstract record UpdateProductRequest(ProductDto Product);
-public abstract record UpdateProductResponse(bool IsSuccess);
+public record UpdateProductRequest(ProductDto Product);
+public record UpdateProductResponse(bool IsSuccess);
 
 public class UpdateProductEndpoint: ICarterModule
 {

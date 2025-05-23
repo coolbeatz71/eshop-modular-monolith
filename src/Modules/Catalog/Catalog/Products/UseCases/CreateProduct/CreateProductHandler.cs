@@ -18,7 +18,7 @@ namespace EShop.Catalog.Products.UseCases.CreateProduct;
 /// var result = await mediator.Send(command);
 /// </code>
 /// </example>
-public abstract record CreateProductCommand(ProductDto Product) : ICommand<CreateProductResult>;
+public record CreateProductCommand(ProductDto Product) : ICommand<CreateProductResult>;
 
 /// <summary>
 /// The response returned after successfully creating a product.

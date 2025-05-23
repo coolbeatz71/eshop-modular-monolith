@@ -2,7 +2,7 @@ using EShop.Shared.Metadata;
 
 namespace EShop.Catalog.Products.UseCases.GetProductsByCategory;
 
-public abstract class RouteMetaField
+public static class RouteMetaField
 {
     public static readonly RouteMetadata GetByCategory = new(
         name: "GetProductsByCategory",

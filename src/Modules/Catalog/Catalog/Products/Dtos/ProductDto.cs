@@ -4,7 +4,7 @@ namespace EShop.Catalog.Products.Dtos;
 /// Data Transfer Object (DTO) representing a product in the catalog.
 /// Used to transfer product data between client and server or application layers.
 /// </summary>
-public abstract record ProductDto
+public record ProductDto
 {
     /// <summary>
     /// Gets the unique identifier of the product.

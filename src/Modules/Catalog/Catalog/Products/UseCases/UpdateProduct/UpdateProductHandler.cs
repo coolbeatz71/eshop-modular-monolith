@@ -17,7 +17,7 @@ namespace EShop.Catalog.Products.UseCases.UpdateProduct;
 /// var response = await mediator.Send(updateCommand);
 /// </code>
 /// </example>
-public abstract record UpdateProductCommand(Guid Id, ProductDto Product) : ICommand<UpdateProductResult>;
+public record UpdateProductCommand(Guid Id, ProductDto Product) : ICommand<UpdateProductResult>;
 
 /// <summary>
 /// Response indicating whether the update operation was successful.

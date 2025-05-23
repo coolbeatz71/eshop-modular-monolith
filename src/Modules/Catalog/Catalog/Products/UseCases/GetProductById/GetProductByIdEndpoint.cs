@@ -9,7 +9,7 @@ using EShop.Catalog.Products.Dtos;
 
 namespace EShop.Catalog.Products.UseCases.GetProductById;
 
-public abstract record GetProductByIdResponse(ProductDto Product);
+public record GetProductByIdResponse(ProductDto Product);
 
 public class GetProductByIdEndpoint: ICarterModule
 {
