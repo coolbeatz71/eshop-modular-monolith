@@ -10,6 +10,7 @@ using EShop.Shared.Configurations;
 using EShop.Shared.DataSource.Extensions;
 using EShop.Shared.DataSource.Seed;
 using EShop.Shared.DataSource.Interceptors;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace EShop.Catalog;
@@ -45,6 +46,9 @@ public static class CatalogModule
         {
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
         });
+    
+        // Register FluentValidator service
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         // Read DB connection info from environment.
         var (port, db, user, pass) = AppEnvironment.Database();
