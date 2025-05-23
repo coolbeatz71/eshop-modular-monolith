@@ -6,11 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 using EShop.Catalog.DataSource;
 using EShop.Catalog.DataSource.Seed;
+using EShop.Shared.Behaviors;
 using EShop.Shared.Configurations;
 using EShop.Shared.DataSource.Extensions;
 using EShop.Shared.DataSource.Seed;
 using EShop.Shared.DataSource.Interceptors;
-using FluentValidation;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace EShop.Catalog;
@@ -44,11 +44,9 @@ public static class CatalogModule
         // Add MediatR handlers from this assembly.
         services.AddMediatR(config =>
         {
+            config.AddOpenBehavior(typeof(ValidationBehavior<,>));
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
         });
-    
-        // Register FluentValidator service
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         // Read DB connection info from environment.
         var (port, db, user, pass) = AppEnvironment.Database();
