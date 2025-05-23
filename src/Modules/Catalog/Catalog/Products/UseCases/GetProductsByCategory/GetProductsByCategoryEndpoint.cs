@@ -9,7 +9,7 @@ using EShop.Catalog.Products.Dtos;
 
 namespace EShop.Catalog.Products.UseCases.GetProductsByCategory;
 
-public abstract record GetProductsByCategoryResponse(IEnumerable<ProductDto> Products);
+public record GetProductsByCategoryResponse(IEnumerable<ProductDto> Products);
 
 public class GetProductsByCategoryEndpoint: ICarterModule
 {

@@ -9,7 +9,7 @@ using EShop.Catalog.Products.Dtos;
 
 namespace EShop.Catalog.Products.UseCases.GetProducts;
 
-public abstract record GetProductsResponse(IEnumerable<ProductDto> Products);
+public record GetProductsResponse(IEnumerable<ProductDto> Products);
 
 //TODO: should add pagination implementation
 public class GetProductsEndpoint: ICarterModule

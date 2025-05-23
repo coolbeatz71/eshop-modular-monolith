@@ -9,8 +9,8 @@ using EShop.Catalog.Products.Dtos;
 
 namespace EShop.Catalog.Products.UseCases.CreateProduct;
 
-public abstract record CreateProductRequest(ProductDto Product);
-public abstract record CreateProductResponse(Guid Id);
+public record CreateProductRequest(ProductDto Product);
+public record CreateProductResponse(Guid Id);
 
 public class CreateProductEndpoint: ICarterModule
 {
