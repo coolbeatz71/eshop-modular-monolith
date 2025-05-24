@@ -5,7 +5,7 @@ namespace EShop.Shared.Extensions;
 
 public static class ResponseExtension
 {
-    public static IResult ToApiResult<T>(this Response<T> result, Func<T, IResult> onSuccess)
+    public static IResult ToApiResponse<T>(this Response<T> result, Func<T, IResult> onSuccess)
     {
         return result.IsSuccess
             ? onSuccess(result.Value!)

@@ -11,6 +11,7 @@ using EShop.Shared.Configurations;
 using EShop.Shared.DataSource.Extensions;
 using EShop.Shared.DataSource.Seed;
 using EShop.Shared.DataSource.Interceptors;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace EShop.Catalog;
@@ -42,11 +43,13 @@ public static class CatalogModule
         // DataSource - Infrastructure services.
         
         // Add MediatR handlers from this assembly.
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddMediatR(config =>
         {
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
         });
+        
 
         // Read DB connection info from environment.
         var (port, db, user, pass) = AppEnvironment.Database();
