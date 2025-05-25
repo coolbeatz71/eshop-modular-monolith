@@ -18,6 +18,7 @@ builder.Services
 var app = builder.Build();
 
 app.MapCarter();
+app.UseExceptionHandler();
 
 // Configure middleware extensions for catalog, basket and ordering modules.
 app
