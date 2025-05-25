@@ -91,6 +91,11 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IE
                 ex.Message, nameof(BadRequestException), 
                 StatusCodes.Status400BadRequest
             ),
+            
+            BadHttpRequestException ex => CreateProblemDetails(
+                ex.Message, nameof(BadHttpRequestException), 
+                StatusCodes.Status400BadRequest
+            ),
 
             NotFoundException ex => CreateProblemDetails(
                 ex.Message, nameof(NotFoundException), 
