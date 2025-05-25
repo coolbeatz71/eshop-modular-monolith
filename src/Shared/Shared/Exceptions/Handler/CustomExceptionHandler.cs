@@ -51,7 +51,7 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IE
         // Include validation errors if applicable
         if (exception is ValidationException validationException)
         {
-            problemDetails.Extensions["validationErrors"] = validationException.Errors;
+            problemDetails.Extensions["errors"] = validationException.Errors;
         }
 
         context.Response.StatusCode = problemDetails.Status ?? StatusCodes.Status500InternalServerError;
