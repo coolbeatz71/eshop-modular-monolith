@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
 using EShop.Catalog.Products.Dtos;
+using EShop.Shared.Extensions;
 
 namespace EShop.Catalog.Products.UseCases.CreateProduct;
 
@@ -22,14 +23,17 @@ public class CreateProductEndpoint: ICarterModule
 
                 var result = await sender.Send(command);
 
-                var response = result.Adapt<CreateProductResponse>();
-
-                return Results.Created($"/products/{response.Id}", response);
+                return result.ToApiResponse(product =>
+                {
+                    var response = product.Adapt<CreateProductResponse>();
+                    return Results.Created($"/products/{response.Id}", response);
+                });
             })
-                .WithName(RouteMetaField.Create.Name)
-                .WithSummary(RouteMetaField.Create.Summary)
-                .WithDescription(RouteMetaField.Create.Description)
-                .Produces<CreateProductResponse>(StatusCodes.Status201Created)
-                .ProducesProblem(StatusCodes.Status400BadRequest);
+            .WithName(RouteMetaField.Create.Name)
+            .WithSummary(RouteMetaField.Create.Summary)
+            .WithDescription(RouteMetaField.Create.Description)
+            .ProducesValidationProblem()
+            .Produces<CreateProductResponse>(StatusCodes.Status201Created)
+            .ProducesProblem(StatusCodes.Status400BadRequest);
     }
 }

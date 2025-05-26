@@ -2,6 +2,7 @@ using EShop.Catalog.DataSource;
 using EShop.Catalog.Products.Dtos;
 using EShop.Catalog.Products.Entities;
 using Eshop.Shared.CQRS;
+using EShop.Shared.Domain;
 
 namespace EShop.Catalog.Products.UseCases.CreateProduct;
 
@@ -18,7 +19,7 @@ namespace EShop.Catalog.Products.UseCases.CreateProduct;
 /// var result = await mediator.Send(command);
 /// </code>
 /// </example>
-public record CreateProductCommand(ProductDto Product) : ICommand<CreateProductResult>;
+public record CreateProductCommand(ProductDto Product) : ICommand<Response<CreateProductResult>>;
 
 /// <summary>
 /// The response returned after successfully creating a product.
@@ -45,7 +46,7 @@ public record CreateProductResult(Guid Id);
 /// </code>
 /// </example>
 public class CreateProductHandler(CatalogDbContext dbContext)
-    : ICommandHandler<CreateProductCommand, CreateProductResult>
+    : ICommandHandler<CreateProductCommand, Response<CreateProductResult>>
 {
     /// <summary>
     /// Handles the <see cref="CreateProductCommand"/> by creating and saving a new product.
@@ -53,7 +54,7 @@ public class CreateProductHandler(CatalogDbContext dbContext)
     /// <param name="command">The command containing product details.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A <see cref="CreateProductResult"/> with the new product's ID.</returns>
-    public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
+    public async Task<Response<CreateProductResult>> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
         // Create Product entity from command object
         var product = CreateNewProduct(command.Product);
@@ -63,7 +64,7 @@ public class CreateProductHandler(CatalogDbContext dbContext)
         await dbContext.SaveChangesAsync(cancellationToken);
 
         // Return response
-        return new CreateProductResult(product.Id);
+        return Response<CreateProductResult>.Success(new CreateProductResult(product.Id));
     }
 
     /// <summary>
