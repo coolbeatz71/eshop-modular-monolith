@@ -70,14 +70,15 @@ public class GetProductsByCategoryHandler(CatalogDbContext dbContext)
     {
         var pageIndex = query.PaginatedRequest.PageIndex;
         var pageSize = query.PaginatedRequest.PageSize;
-        var count = await dbContext.Products.LongCountAsync(cancellationToken);
+        
+        var baseQuery = dbContext.Products
+            .AsNoTracking()
+            .Where(p => p.Category.Any(c => EF.Functions.ILike(c, $"%{query.Category}%")));
+        
+        var count = await baseQuery.LongCountAsync(cancellationToken);
         
         // Get products by category using dbContext and fuzzy searching
-        var products = await dbContext.Products
-            .AsNoTracking()
-            .Where(p =>
-                    p.Category.Any(c => EF.Functions.ILike(c, $"%{query.Category}%"))
-                )
+        var products = await baseQuery
             .OrderBy(p => p.Name)
             .Skip(pageIndex * pageSize)
             .Take(pageSize)
