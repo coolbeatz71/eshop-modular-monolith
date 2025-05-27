@@ -6,18 +6,23 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Http;
 
 using EShop.Catalog.Products.Dtos;
+using EShop.Shared.Pagination;
 
 namespace EShop.Catalog.Products.UseCases.GetProductsByCategory;
 
-public record GetProductsByCategoryResponse(IEnumerable<ProductDto> Products);
+public record GetProductsByCategoryResponse(PaginatedResult<ProductDto> Products);
 
 public class GetProductsByCategoryEndpoint: ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("products/category/{category}", async (string category, ISender sender) =>
+        app.MapGet("products/category/{category}", async (
+                string category,
+                [AsParameters] PaginatedRequest request,
+                ISender sender
+            ) =>
             {
-                var query = new GetProductsByCategoryQuery(category);
+                var query = new GetProductsByCategoryQuery(category, request);
                 
                 var result = await sender.Send(query);
 
