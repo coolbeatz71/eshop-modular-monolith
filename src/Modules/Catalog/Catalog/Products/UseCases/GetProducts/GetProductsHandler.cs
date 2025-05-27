@@ -27,10 +27,12 @@ public record GetProductsQuery(PaginatedRequest PaginatedRequest) : IQuery<GetPr
 /// <summary>
 /// The response containing a collection of all products.
 /// </summary>
-/// <param name="Products">A list of product DTOs returned from the query.</param>
+/// <param name="Products">A paginated result containing product DTOs.
+/// Includes metadata like total item count and current page index.
+/// </param>
 /// <example>
 /// <code>
-/// var response = new GetProductsResult(productList);
+/// var response = new GetProductsResult(paginatedProducts);
 /// </code>
 /// </example>
 public record GetProductsResult(PaginatedResult<ProductDto> Products);

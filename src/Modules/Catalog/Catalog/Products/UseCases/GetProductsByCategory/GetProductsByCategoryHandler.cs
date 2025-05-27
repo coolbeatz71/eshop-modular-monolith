@@ -1,6 +1,7 @@
 using EShop.Catalog.DataSource;
 using EShop.Catalog.Products.Dtos;
 using EShop.Shared.CQRS;
+using EShop.Shared.Pagination;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,27 +11,34 @@ namespace EShop.Catalog.Products.UseCases.GetProductsByCategory;
 /// Query to retrieve all products that belong to a specified category.
 /// </summary>
 /// <param name="Category">The category name to filter the products by.</param>
+/// <param name="PaginatedRequest">Pagination parameters used to control page size and index.</param>
 /// <remarks>
-/// This query enables category-based filtering of catalog products.
+/// This query enables category-based filtering of catalog products with pagination support.
 /// </remarks>
 /// <example>
 /// <code>
-/// var query = new GetProductsByCategoryQuery("Electronics");
+/// var query = new GetProductsByCategoryQuery("Electronics", new PaginatedRequest(page: 1, pageSize: 10));
 /// var result = await mediator.Send(query);
 /// </code>
 /// </example>
-public record GetProductsByCategoryQuery(string Category) : IQuery<GetProductsByCategoryResult>;
+public record GetProductsByCategoryQuery(
+    string Category, 
+    PaginatedRequest PaginatedRequest
+) : IQuery<GetProductsByCategoryResult>;
 
 /// <summary>
-/// The response containing a list of products filtered by category.
+/// The response containing a paginated list of products filtered by category.
 /// </summary>
-/// <param name="Products">A collection of product DTOs belonging to the given category.</param>
+/// <param name="Products">
+/// A paginated result containing product DTOs that belong to the specified category.
+/// Includes metadata like total item count and current page index.
+/// </param>
 /// <example>
 /// <code>
-/// var response = new GetProductsByCategoryResult(filteredProducts);
+/// var response = new GetProductsByCategoryResult(paginatedProducts);
 /// </code>
 /// </example>
-public record GetProductsByCategoryResult(IEnumerable<ProductDto> Products);
+public record GetProductsByCategoryResult(PaginatedResult<ProductDto> Products);
 
 /// <summary>
 /// Handles the <see cref="GetProductsByCategoryQuery"/> by retrieving products from the database that belong to a specified category.
@@ -60,6 +68,10 @@ public class GetProductsByCategoryHandler(CatalogDbContext dbContext)
     /// </returns>
     public async Task<GetProductsByCategoryResult> Handle(GetProductsByCategoryQuery query, CancellationToken cancellationToken)
     {
+        var pageIndex = query.PaginatedRequest.PageIndex;
+        var pageSize = query.PaginatedRequest.PageSize;
+        var count = await dbContext.Products.LongCountAsync(cancellationToken);
+        
         // Get products by category using dbContext and fuzzy searching
         var products = await dbContext.Products
             .AsNoTracking()
@@ -67,12 +79,20 @@ public class GetProductsByCategoryHandler(CatalogDbContext dbContext)
                     p.Category.Any(c => EF.Functions.ILike(c, $"%{query.Category}%"))
                 )
             .OrderBy(p => p.Name)
+            .Skip(pageIndex * pageSize)
+            .Take(pageSize)
             .ToListAsync(cancellationToken);
         
         // Map product entity to ProductDto using Mapster
-        var productsDtos = products.Adapt<List<ProductDto>>();
+        var productsDtoList = products.Adapt<List<ProductDto>>();
+        var paginatedResults = new PaginatedResult<ProductDto>(
+            pageIndex, 
+            pageSize, 
+            count, 
+            productsDtoList
+        );
         
         // Return response
-        return new GetProductsByCategoryResult(productsDtos);
+        return new GetProductsByCategoryResult(paginatedResults);
     }
 }
