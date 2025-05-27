@@ -47,6 +47,7 @@ public static class CatalogModule
         services.AddMediatR(config =>
         {
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            config.AddOpenBehavior(typeof(LoggingBehavior<,>));
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
         });
         
