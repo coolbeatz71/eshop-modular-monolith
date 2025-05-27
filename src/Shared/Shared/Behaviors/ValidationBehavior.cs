@@ -1,5 +1,5 @@
 using MediatR;
-using Eshop.Shared.CQRS;
+using EShop.Shared.CQRS;
 using FluentValidation;
 
 namespace EShop.Shared.Behaviors;

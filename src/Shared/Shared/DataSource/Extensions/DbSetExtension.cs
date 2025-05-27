@@ -1,5 +1,5 @@
 using System.Linq.Expressions;
-using Eshop.Shared.Exceptions;
+using EShop.Shared.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 

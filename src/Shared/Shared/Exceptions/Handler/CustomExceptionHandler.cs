@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-using Eshop.Shared.Exceptions;
+using EShop.Shared.Exceptions;
 
 namespace EShop.Shared.Exceptions.Handler;
 

@@ -1,4 +1,4 @@
-namespace Eshop.Shared.Exceptions;
+namespace EShop.Shared.Exceptions;
 
 /// <summary>
 /// Exception that represents an internal server error, typically indicating an unexpected failure during execution.

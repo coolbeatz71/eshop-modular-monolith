@@ -1,4 +1,4 @@
-namespace Eshop.Shared.Exceptions;
+namespace EShop.Shared.Exceptions;
 
 /// <summary>
 /// Exception that represents a not found error, typically indicating that a requested resource does not exist.

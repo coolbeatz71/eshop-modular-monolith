@@ -1,7 +1,7 @@
 using EShop.Catalog.DataSource;
 using EShop.Catalog.Products.Dtos;
 using EShop.Catalog.Products.Entities;
-using Eshop.Shared.CQRS;
+using EShop.Shared.CQRS;
 
 namespace EShop.Catalog.Products.UseCases.CreateProduct;
 

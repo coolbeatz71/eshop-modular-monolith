@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 using EShop.Catalog.DataSource;
 using EShop.Catalog.Products.Dtos;
-using Eshop.Shared.CQRS;
+using EShop.Shared.CQRS;
 
 namespace EShop.Catalog.Products.UseCases.GetProducts;
 

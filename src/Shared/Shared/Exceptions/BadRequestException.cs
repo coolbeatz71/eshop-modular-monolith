@@ -1,4 +1,4 @@
-namespace Eshop.Shared.Exceptions;
+namespace EShop.Shared.Exceptions;
 
 /// <summary>
 /// Exception that represents a bad request, typically caused by invalid input or parameters.
