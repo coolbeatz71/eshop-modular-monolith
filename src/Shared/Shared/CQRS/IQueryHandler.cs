@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Eshop.Shared.CQRS;
+namespace EShop.Shared.CQRS;
 
 /// <summary>
 /// Handles queries of type <typeparamref name="TQuery"/> that return a response of type <typeparamref name="TResponse"/>.

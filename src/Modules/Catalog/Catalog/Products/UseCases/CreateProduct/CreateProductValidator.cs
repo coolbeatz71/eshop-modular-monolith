@@ -16,6 +16,6 @@ public class CreateProductValidator: AbstractValidator<CreateProductCommand>
         RuleFor(x => x.Product.Category)
             .Cascade(CascadeMode.Stop)
             .NotNull().WithMessage("Category is required.")
-            .Must(c => c.Count != 0).WithMessage("The category list cannot be empty");
+            .Must(c => c.Count != 0).WithMessage("The category list cannot be empty.");
     }
 }

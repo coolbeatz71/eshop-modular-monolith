@@ -1,7 +1,7 @@
 using EShop.Catalog.DataSource;
-using Eshop.Shared.CQRS;
+using EShop.Shared.CQRS;
 using EShop.Shared.DataSource.Extensions;
-using Eshop.Shared.Exceptions;
+using EShop.Shared.Exceptions;
 
 namespace EShop.Catalog.Products.UseCases.DeleteProduct;
 
@@ -18,7 +18,7 @@ namespace EShop.Catalog.Products.UseCases.DeleteProduct;
 /// var result = await mediator.Send(command);
 /// </code>
 /// </example>
-public record DeleteProductCommand(Guid ProductId) : ICommand<DeleteProductResult>;
+public record DeleteProductCommand(string ProductId) : ICommand<DeleteProductResult>;
 
 /// <summary>
 /// Response indicating whether the product was successfully deleted.

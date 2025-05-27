@@ -1,4 +1,5 @@
 using Carter;
+using EShop.Shared.Exceptions.Handler;
 using EShop.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,9 +16,14 @@ builder.Services
     .AddCatalogModule(builder.Configuration)
     .AddBasketModule(builder.Configuration)
     .AddOrderingModule(builder.Configuration);
+
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 var app = builder.Build();
 
+
 app.MapCarter();
+app.UseExceptionHandler(_ => { });
 
 // Configure middleware extensions for catalog, basket and ordering modules.
 app

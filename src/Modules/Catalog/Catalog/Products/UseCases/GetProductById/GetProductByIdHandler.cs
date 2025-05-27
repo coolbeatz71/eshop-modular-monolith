@@ -2,9 +2,9 @@ using Mapster;
 
 using EShop.Catalog.DataSource;
 using EShop.Catalog.Products.Dtos;
-using Eshop.Shared.CQRS;
+using EShop.Shared.CQRS;
 using EShop.Shared.DataSource.Extensions;
-using Eshop.Shared.Exceptions;
+using EShop.Shared.Exceptions;
 
 namespace EShop.Catalog.Products.UseCases.GetProductById;
 

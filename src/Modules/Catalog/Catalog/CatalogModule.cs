@@ -50,7 +50,6 @@ public static class CatalogModule
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
         });
         
-
         // Read DB connection info from environment.
         var (port, db, user, pass) = AppEnvironment.Database();
         var connectionString = $"Host=127.0.0.1;Port={port};Database={db};Username={user};Password={pass};";

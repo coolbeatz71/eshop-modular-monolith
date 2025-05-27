@@ -13,7 +13,7 @@ public class DeleteProductEndpoint: ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapDelete("/products/{id:guid}", async (Guid id, ISender sender) =>
+        app.MapDelete("/products/{id}", async (string id, ISender sender) =>
             {
                 var command = new DeleteProductCommand(ProductId: id);
 
