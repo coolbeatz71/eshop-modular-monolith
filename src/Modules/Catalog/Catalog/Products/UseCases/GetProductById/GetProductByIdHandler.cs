@@ -21,7 +21,7 @@ namespace EShop.Catalog.Products.UseCases.GetProductById;
 /// var result = await mediator.Send(query);
 /// </code>
 /// </example>
-public record GetProductByIdQuery(Guid ProductId) : IQuery<GetProductByIdResult>;
+public record GetProductByIdQuery(string ProductId) : IQuery<GetProductByIdResult>;
 
 /// <summary>
 /// The response containing the requested product information.
@@ -63,13 +63,15 @@ public class GetProductByIdHandler(CatalogDbContext dbContext)
     /// </exception>
     public async Task<GetProductByIdResult> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
     {
+        var productId = Guid.Parse(query.ProductId);
+        
         // Get product by id using dbContext
         var product = await dbContext.Products
             .SingleDefaultOrThrowAsync(
-                p => p.Id == query.ProductId,
+                p => p.Id == productId,
                 asNoTracking: true,
                 cancellationToken: cancellationToken,
-                key: query.ProductId.ToString()
+                key: query.ProductId
             );
 
         // Map product entity to ProductDto using Mapster

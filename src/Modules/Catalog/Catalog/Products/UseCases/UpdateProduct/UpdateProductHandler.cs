@@ -9,7 +9,7 @@ namespace EShop.Catalog.Products.UseCases.UpdateProduct;
 /// <summary>
 /// Command to update an existing product in the catalog.
 /// </summary>
-/// <param name="Id">The ID of the product to be updated.</param>
+/// <param name="ProductId">The ID of the product to be updated.</param>
 /// <param name="Product">The product DTO containing updated product data.</param>
 /// <example>
 /// <code>
@@ -17,7 +17,7 @@ namespace EShop.Catalog.Products.UseCases.UpdateProduct;
 /// var response = await mediator.Send(updateCommand);
 /// </code>
 /// </example>
-public record UpdateProductCommand(Guid Id, ProductDto Product) : ICommand<UpdateProductResult>;
+public record UpdateProductCommand(string ProductId, ProductDto Product) : ICommand<UpdateProductResult>;
 
 /// <summary>
 /// Response indicating whether the update operation was successful.
@@ -61,8 +61,10 @@ public class UpdateProductHandler(CatalogDbContext dbContext)
     /// <exception cref="ArgumentOutOfRangeException">Thrown when the product price is negative.</exception>
     public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
+        var productId = Guid.Parse(command.ProductId);
+        
         // check for entity in the Database
-        var product = await dbContext.Products.FindOrThrowAsync([command.Id], cancellationToken);
+        var product = await dbContext.Products.FindOrThrowAsync([productId], cancellationToken);
 
         // update existing product entity with new values
         UpdateProductWithNewValues(product, command.Product);

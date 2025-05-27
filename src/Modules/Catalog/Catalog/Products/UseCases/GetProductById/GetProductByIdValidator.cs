@@ -1,11 +1,11 @@
 using EShop.Shared.Extensions;
 using FluentValidation;
 
-namespace EShop.Catalog.Products.UseCases.DeleteProduct;
+namespace EShop.Catalog.Products.UseCases.GetProductById;
 
-public class DeleteProductValidator: AbstractValidator<DeleteProductCommand>
+public class GetProductByIdValidator: AbstractValidator<GetProductByIdQuery>
 {
-    public DeleteProductValidator()
+    public GetProductByIdValidator()
     {
         RuleFor(x => x.ProductId)
             .Cascade(CascadeMode.Stop)
