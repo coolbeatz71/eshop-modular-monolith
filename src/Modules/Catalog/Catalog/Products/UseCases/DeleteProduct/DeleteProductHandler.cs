@@ -18,7 +18,7 @@ namespace EShop.Catalog.Products.UseCases.DeleteProduct;
 /// var result = await mediator.Send(command);
 /// </code>
 /// </example>
-public record DeleteProductCommand(Guid ProductId) : ICommand<DeleteProductResult>;
+public record DeleteProductCommand(string ProductId) : ICommand<DeleteProductResult>;
 
 /// <summary>
 /// Response indicating whether the product was successfully deleted.

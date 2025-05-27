@@ -83,17 +83,20 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IE
         exception switch
         {
             ValidationException ex => CreateProblemDetails(
-                ex.Message, nameof(ValidationException), 
+                ex.Message, 
+                nameof(ValidationException), 
                 StatusCodes.Status400BadRequest
             ),
 
             BadRequestException ex => CreateProblemDetails(
-                ex.Message, nameof(BadRequestException), 
+                ex.Message, 
+                nameof(BadRequestException), 
                 StatusCodes.Status400BadRequest
             ),
             
             BadHttpRequestException ex => CreateProblemDetails(
-                ex.Message, nameof(BadHttpRequestException), 
+                ex.Message, 
+                nameof(BadHttpRequestException), 
                 StatusCodes.Status400BadRequest
             ),
 
@@ -103,12 +106,14 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IE
             ),
 
             InternalServerException ex => CreateProblemDetails(
-                ex.Message, nameof(InternalServerException), 
+                ex.Message, 
+                nameof(InternalServerException), 
                 StatusCodes.Status500InternalServerError
             ),
-
+            
             _ => CreateProblemDetails(
-                exception.Message, exception.GetType().Name, 
+                exception.Message, 
+                exception.GetType().Name, 
                 StatusCodes.Status500InternalServerError
             )
         };

@@ -6,6 +6,9 @@ public class DeleteProductValidator: AbstractValidator<DeleteProductCommand>
 {
     public DeleteProductValidator()
     {
-        RuleFor(x => x.ProductId).NotEmpty().WithMessage("Product Id is required.");
+        RuleFor(x => x.ProductId)
+            .Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage("Product Id is required.")
+            .Must(id => Guid.TryParse(id, out _)).WithMessage("Product Id is invalid.");
     }
 }
