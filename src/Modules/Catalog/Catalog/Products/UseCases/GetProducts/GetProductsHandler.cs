@@ -4,22 +4,25 @@ using Microsoft.EntityFrameworkCore;
 using EShop.Catalog.DataSource;
 using EShop.Catalog.Products.Dtos;
 using EShop.Shared.CQRS;
+using EShop.Shared.Pagination;
 
 namespace EShop.Catalog.Products.UseCases.GetProducts;
 
 /// <summary>
 /// Query to retrieve a list of all products in the catalog.
 /// </summary>
+/// <param name="PaginatedRequest">Pagination parameters used to control page size and index.</param>
 /// <remarks>
-/// Implements the CQRS query contract to encapsulate read logic for fetching all products.
+/// Implements the CQRS query contract to encapsulate read logic for fetching all products,
+/// including support for pagination.
 /// </remarks>
 /// <example>
 /// <code>
-/// var query = new GetProductsQuery();
+/// var query = new GetProductsQuery(new PaginatedRequest(page: 1, pageSize: 10));
 /// var result = await mediator.Send(query);
 /// </code>
 /// </example>
-public record GetProductsQuery() : IQuery<GetProductsResult>;
+public record GetProductsQuery(PaginatedRequest PaginatedRequest) : IQuery<GetProductsResult>;
 
 /// <summary>
 /// The response containing a collection of all products.
@@ -30,7 +33,7 @@ public record GetProductsQuery() : IQuery<GetProductsResult>;
 /// var response = new GetProductsResult(productList);
 /// </code>
 /// </example>
-public record GetProductsResult(IEnumerable<ProductDto> Products);
+public record GetProductsResult(PaginatedResult<ProductDto> Products);
 
 /// <summary>
 /// Handles the <see cref="GetProductsQuery"/> by retrieving all products from the database and mapping them to DTOs.
@@ -59,16 +62,28 @@ public class GetProductsHandler(CatalogDbContext dbContext)
     /// </returns>
     public async Task<GetProductsResult> Handle(GetProductsQuery query, CancellationToken cancellationToken)
     {
-        // Get products using dbContext
+        var pageIndex = query.PaginatedRequest.PageIndex;
+        var pageSize = query.PaginatedRequest.PageSize;
+        var count = await dbContext.Products.LongCountAsync(cancellationToken);
+        
+        // Get paginated products using dbContext
         var products = await dbContext.Products
             .AsNoTracking()
             .OrderBy(p => p.Name)
+            .Skip(pageIndex * pageSize)
+            .Take(pageSize)
             .ToListAsync(cancellationToken);
         
         // Map product entity to ProductDto using Mapster
-        var productsDtos = products.Adapt<List<ProductDto>>(); 
+        var productsDtoList = products.Adapt<List<ProductDto>>();
+        var paginatedResults = new PaginatedResult<ProductDto>(
+            pageIndex, 
+            pageSize, 
+            count, 
+            productsDtoList
+        );
         
         // Return response
-        return new GetProductsResult(productsDtos);
+        return new GetProductsResult(paginatedResults);
     }
 }
