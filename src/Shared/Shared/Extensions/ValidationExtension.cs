@@ -18,8 +18,10 @@ public static class ValidationExtension
     /// RuleFor(x => x.UserId).IsValidGuid("User ID");
     /// </code>
     /// </example>
-    public static void IsValidGuid<T>(this IRuleBuilder<T, string> ruleBuilder,
-        string fieldDisplayName = "Id")
+    public static void IsValidGuid<T>(
+        this IRuleBuilder<T, string> ruleBuilder,
+        string fieldDisplayName = "Id"
+    )
     {
         ruleBuilder
             .NotEmpty().WithMessage($"{fieldDisplayName} is required.")
