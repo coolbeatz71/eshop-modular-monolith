@@ -10,10 +10,24 @@ using EShop.Shared.Pagination;
 
 namespace EShop.Catalog.Products.UseCases.GetProducts;
 
+/// <summary>
+/// Represents the response returned when retrieving a paginated list of products.
+/// </summary>
+/// <param name="Products">A paginated result containing a collection of product DTOs.</param>
 public record GetProductsResponse(PaginatedResult<ProductDto> Products);
 
-public class GetProductsEndpoint: ICarterModule
+/// <summary>
+/// Defines the endpoint module for retrieving a paginated list of products.
+/// Maps an HTTP GET route that supports pagination via query parameters.
+/// </summary>
+public class GetProductsEndpoint : ICarterModule
 {
+    /// <summary>
+    /// Adds the paginated product listing endpoint to the application's route builder.
+    /// Handles GET requests to "/products", sends a query with pagination data via MediatR,
+    /// and returns a paginated list of products.
+    /// </summary>
+    /// <param name="app">The route builder used to map the endpoint.</param>
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapGet("/products", async ([AsParameters] PaginatedRequest request, ISender sender) =>
