@@ -3,7 +3,7 @@ using EShop.Shared.Metadata;
 namespace EShop.Catalog.Products.UseCases.GetProducts;
 
 /// <summary>
-/// Contains metadata information for the product retrieval route,
+/// Contains metadata information for the products retrieval route,
 /// such as name, summary, and detailed description.
 /// </summary>
 public static class RouteMetaField
