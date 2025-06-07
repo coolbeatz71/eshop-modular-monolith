@@ -2,6 +2,10 @@ using EShop.Shared.Metadata;
 
 namespace EShop.Catalog.Products.UseCases.GetProductById;
 
+/// <summary>
+/// Contains metadata information for the product retrieval by id route,
+/// such as name, summary, and detailed description.
+/// </summary>
 public static class RouteMetaField
 {
     public static readonly RouteMetadata GetById = new(

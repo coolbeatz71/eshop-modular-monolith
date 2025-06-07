@@ -7,10 +7,24 @@ using Microsoft.AspNetCore.Routing;
 
 namespace EShop.Catalog.Products.UseCases.DeleteProduct;
 
+/// <summary>
+/// Represents the response returned after attempting to delete a product.
+/// </summary>
+/// <param name="IsSuccess">Indicates whether the deletion was successful.</param>
 public record DeleteProductResponse(bool IsSuccess);
 
+/// <summary>
+/// Defines the endpoint module for deleting a product.
+/// Maps an HTTP DELETE route to handle product deletion requests by product ID.
+/// </summary>
 public class DeleteProductEndpoint: ICarterModule
 {
+    /// <summary>
+    /// Adds the product deletion endpoint to the application's route builder.
+    /// Handles DELETE requests to "/products/{id}", sends a command via MediatR,
+    /// and returns a response indicating success or failure.
+    /// </summary>
+    /// <param name="app">The route builder used to map the endpoint.</param>
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapDelete("/products/{id}", async (string id, ISender sender) =>

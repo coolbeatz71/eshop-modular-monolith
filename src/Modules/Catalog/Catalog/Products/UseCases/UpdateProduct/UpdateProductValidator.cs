@@ -3,8 +3,14 @@ using FluentValidation;
 
 namespace EShop.Catalog.Products.UseCases.UpdateProduct;
 
+/// <summary>
+/// Validator for <see cref="UpdateProductCommand"/> that ensures the product data is valid.
+/// </summary>
 public class UpdateProductValidator: AbstractValidator<UpdateProductCommand>
 {
+    /// <summary>
+    /// Configure validation rules for the product properties.
+    /// </summary>
     public UpdateProductValidator()
     {
         RuleFor(x => x.ProductId)
