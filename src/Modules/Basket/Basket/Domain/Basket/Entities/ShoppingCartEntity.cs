@@ -25,8 +25,40 @@ public class ShoppingCartEntity: Aggregate<Guid>
         return shoppingCart;
     }
 
-    public void AddItem()
+    public void AddItem(
+        Guid productId, 
+        int quantity, 
+        string color, 
+        decimal price, 
+        string productName
+    )
     {
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
         
+        var existingItem = Items.FirstOrDefault(x => x.ProductId == productId);
+
+        if (existingItem != null)
+        {
+            existingItem.Quantity += quantity;
+        }
+        else
+        {
+            var newItem = new ShoppingCartItemEntity(Id, productId, quantity, color, price, productName)
+            {
+                Id = Guid.Empty
+            };
+            _items.Add(newItem);
+        }
+    }
+
+    public void RemoveItem(Guid productId)
+    {
+        var existingItem = Items.FirstOrDefault(x => x.ProductId == productId);
+
+        if (existingItem != null)
+        {
+            _items.Remove(existingItem);
+        }
     }
 }
