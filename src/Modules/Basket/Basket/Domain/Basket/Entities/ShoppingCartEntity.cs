@@ -12,4 +12,21 @@ public class ShoppingCartEntity: Aggregate<Guid>
 
     public decimal TotalPrice => Items.Sum(x => x.Price * x.Quantity);
 
+    public static ShoppingCartEntity Create(Guid id, string userName)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(userName);
+
+        var shoppingCart = new ShoppingCartEntity
+        {
+            Id = id,
+            UserName = userName
+        };
+        
+        return shoppingCart;
+    }
+
+    public void AddItem()
+    {
+        
+    }
 }
