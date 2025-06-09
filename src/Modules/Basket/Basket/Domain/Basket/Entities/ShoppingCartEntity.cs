@@ -25,10 +25,10 @@ public class ShoppingCartEntity: Aggregate<Guid>
     public decimal TotalPrice => Items.Sum(x => x.Price * x.Quantity);
     
     /// <summary>
-    /// Creates a new <see cref="ShoppingCartEntity"/> with the specified ID and user name.
+    /// Creates a new <see cref="ShoppingCartEntity"/> with the specified ID and username.
     /// </summary>
     /// <param name="id">The unique identifier for the cart.</param>
-    /// <param name="userName">The user name associated with the cart.</param>
+    /// <param name="userName">The username associated with the cart.</param>
     /// <returns>A new instance of <see cref="ShoppingCartEntity"/>.</returns>
     /// <exception cref="ArgumentException">Thrown when <paramref name="userName"/> is null or empty.</exception>
     /// <example>
