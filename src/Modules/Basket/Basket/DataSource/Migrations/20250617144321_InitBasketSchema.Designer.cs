@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EShop.Basket.DataSource.Migrations
 {
     [DbContext(typeof(BasketDbContext))]
-    [Migration("20250617133131_CreateShoppingCartAndItemsTable")]
-    partial class CreateShoppingCartAndItemsTable
+    [Migration("20250617144321_InitBasketSchema")]
+    partial class InitBasketSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

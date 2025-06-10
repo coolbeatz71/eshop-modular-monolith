@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EShop.Basket.DataSource.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateShoppingCartAndItemsTable : Migration
+    public partial class InitBasketSchema : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

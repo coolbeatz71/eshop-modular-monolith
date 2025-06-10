@@ -10,11 +10,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Catalog.DataSource.Migrations
+namespace EShop.Catalog.DataSource.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20250517234722_CreateProductTable")]
-    partial class CreateProductTable
+    [Migration("20250617144250_InitCatalogSchema")]
+    partial class InitCatalogSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,7 +27,7 @@ namespace Catalog.DataSource.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("EShop.Catalog.Products.Models.Product", b =>
+            modelBuilder.Entity("EShop.Catalog.Products.Entities.ProductEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
