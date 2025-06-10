@@ -2,6 +2,7 @@ using System.Reflection;
 using EShop.Basket.DataSource;
 using EShop.Shared.Behaviors;
 using EShop.Shared.Configurations;
+using EShop.Shared.DataSource.Extensions;
 using EShop.Shared.DataSource.Interceptors;
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
@@ -56,6 +57,7 @@ public static class BasketModule
         // Use Api endpoint services.
         // Use application UseCase services.
         // Use DataSource - Infrastructure services.
+        app.UseMigration<BasketDbContext>();
         
         return app;
     }
