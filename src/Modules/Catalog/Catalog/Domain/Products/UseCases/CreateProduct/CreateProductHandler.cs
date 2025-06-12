@@ -1,9 +1,9 @@
 using EShop.Catalog.DataSource;
-using EShop.Catalog.Products.Dtos;
-using EShop.Catalog.Products.Entities;
+using EShop.Catalog.Domain.Products.Dtos;
+using EShop.Catalog.Domain.Products.Entities;
 using EShop.Shared.CQRS;
 
-namespace EShop.Catalog.Products.UseCases.CreateProduct;
+namespace EShop.Catalog.Domain.Products.UseCases.CreateProduct;
 
 /// <summary>
 /// Command to create a new product using the provided product data.

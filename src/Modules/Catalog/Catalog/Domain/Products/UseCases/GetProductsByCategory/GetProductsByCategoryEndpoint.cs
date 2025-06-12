@@ -1,14 +1,13 @@
 using Carter;
-using MediatR;
-using Mapster;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Http;
-
-using EShop.Catalog.Products.Dtos;
+using EShop.Catalog.Domain.Products.Dtos;
 using EShop.Shared.Pagination;
+using Mapster;
+using MediatR;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 
-namespace EShop.Catalog.Products.UseCases.GetProductsByCategory;
+namespace EShop.Catalog.Domain.Products.UseCases.GetProductsByCategory;
 
 /// <summary>
 /// Represents the response containing a paginated list of products

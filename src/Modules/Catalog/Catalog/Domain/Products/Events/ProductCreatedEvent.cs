@@ -1,7 +1,7 @@
-using EShop.Catalog.Products.Entities;
+using EShop.Catalog.Domain.Products.Entities;
 using EShop.Shared.Domain;
 
-namespace EShop.Catalog.Products.Events;
+namespace EShop.Catalog.Domain.Products.Events;
 
 /// <summary>
 /// Represents a domain event that is raised when a new <see cref="ProductEntity"/> is created.

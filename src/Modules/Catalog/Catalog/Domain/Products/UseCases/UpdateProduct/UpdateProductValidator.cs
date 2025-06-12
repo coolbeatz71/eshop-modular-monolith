@@ -1,7 +1,7 @@
 using EShop.Shared.Extensions;
 using FluentValidation;
 
-namespace EShop.Catalog.Products.UseCases.UpdateProduct;
+namespace EShop.Catalog.Domain.Products.UseCases.UpdateProduct;
 
 /// <summary>
 /// Validator for <see cref="UpdateProductCommand"/> that ensures the product data is valid.

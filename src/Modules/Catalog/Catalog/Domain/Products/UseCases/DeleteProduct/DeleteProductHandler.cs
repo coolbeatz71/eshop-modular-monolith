@@ -3,7 +3,7 @@ using EShop.Shared.CQRS;
 using EShop.Shared.DataSource.Extensions;
 using EShop.Shared.Exceptions;
 
-namespace EShop.Catalog.Products.UseCases.DeleteProduct;
+namespace EShop.Catalog.Domain.Products.UseCases.DeleteProduct;
 
 /// <summary>
 /// Command to delete a product by its unique identifier.

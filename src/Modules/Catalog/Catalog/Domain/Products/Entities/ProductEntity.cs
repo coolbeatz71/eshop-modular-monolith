@@ -1,7 +1,7 @@
-using EShop.Catalog.Products.Events;
+using EShop.Catalog.Domain.Products.Events;
 using EShop.Shared.Domain;
 
-namespace EShop.Catalog.Products.Entities;
+namespace EShop.Catalog.Domain.Products.Entities;
 
 /// <summary>
 /// Represents a product in the catalog with support for domain events and state management.

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace EShop.Catalog.Products.UseCases.DeleteProduct;
+namespace EShop.Catalog.Domain.Products.UseCases.DeleteProduct;
 
 /// <summary>
 /// Represents the response returned after attempting to delete a product.

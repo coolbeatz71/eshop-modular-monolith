@@ -1,13 +1,12 @@
 using Carter;
+using EShop.Catalog.Domain.Products.Dtos;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-using EShop.Catalog.Products.Dtos;
-
-namespace EShop.Catalog.Products.UseCases.GetProductById;
+namespace EShop.Catalog.Domain.Products.UseCases.GetProductById;
 
 /// <summary>
 /// Represents the response containing the product data retrieved by ID.

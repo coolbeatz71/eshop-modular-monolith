@@ -1,6 +1,6 @@
 using EShop.Shared.Metadata;
 
-namespace EShop.Catalog.Products.UseCases.GetProducts;
+namespace EShop.Catalog.Domain.Products.UseCases.GetProducts;
 
 /// <summary>
 /// Contains metadata information for the products retrieval route,

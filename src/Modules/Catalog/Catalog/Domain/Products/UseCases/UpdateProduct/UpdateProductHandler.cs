@@ -1,10 +1,10 @@
 using EShop.Catalog.DataSource;
-using EShop.Catalog.Products.Dtos;
-using EShop.Catalog.Products.Entities;
+using EShop.Catalog.Domain.Products.Dtos;
+using EShop.Catalog.Domain.Products.Entities;
 using EShop.Shared.CQRS;
 using EShop.Shared.DataSource.Extensions;
 
-namespace EShop.Catalog.Products.UseCases.UpdateProduct;
+namespace EShop.Catalog.Domain.Products.UseCases.UpdateProduct;
 
 /// <summary>
 /// Command to update an existing product in the catalog.

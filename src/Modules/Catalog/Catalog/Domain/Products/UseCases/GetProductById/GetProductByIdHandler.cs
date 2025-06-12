@@ -1,12 +1,11 @@
-using Mapster;
-
 using EShop.Catalog.DataSource;
-using EShop.Catalog.Products.Dtos;
+using EShop.Catalog.Domain.Products.Dtos;
 using EShop.Shared.CQRS;
 using EShop.Shared.DataSource.Extensions;
 using EShop.Shared.Exceptions;
+using Mapster;
 
-namespace EShop.Catalog.Products.UseCases.GetProductById;
+namespace EShop.Catalog.Domain.Products.UseCases.GetProductById;
 
 /// <summary>
 /// Query to retrieve a product by its unique identifier.

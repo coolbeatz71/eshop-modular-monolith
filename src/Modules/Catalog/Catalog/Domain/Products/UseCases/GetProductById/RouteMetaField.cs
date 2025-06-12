@@ -1,6 +1,6 @@
 using EShop.Shared.Metadata;
 
-namespace EShop.Catalog.Products.UseCases.GetProductById;
+namespace EShop.Catalog.Domain.Products.UseCases.GetProductById;
 
 /// <summary>
 /// Contains metadata information for the product retrieval by id route,
