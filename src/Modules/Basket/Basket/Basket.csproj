@@ -9,12 +9,12 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="../../../Shared/Shared/Shared.csproj" />
+		<ProjectReference Include="..\..\Catalog\Catalog\Catalog.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Domain\Basket\Events\" />
 	  <Folder Include="Domain\Basket\UseCases\AddItemToBasket\" />
 	  <Folder Include="Domain\Basket\UseCases\CheckoutBasket\" />
-	  <Folder Include="Domain\Basket\UseCases\CreateBasket\" />
 	  <Folder Include="Domain\Basket\UseCases\DeleteBasket\" />
 	  <Folder Include="Domain\Basket\UseCases\GetBasketById\" />
 	  <Folder Include="Domain\Basket\UseCases\RemoveItemFromBasket\" />
