@@ -1,5 +1,7 @@
 using System.Reflection;
 using EShop.Basket.DataSource;
+using EShop.Basket.DataSource.Repositories;
+using EShop.Basket.Domain.Basket.Repositories;
 using EShop.Shared.Behaviors;
 using EShop.Shared.Configurations;
 using EShop.Shared.DataSource.Extensions;
@@ -21,6 +23,9 @@ public static class BasketModule
         // Api Endpoint services.
         // Application UseCase services.
         // DataSource - Infrastructure services.
+        
+        // Register application UseCase services
+        services.AddScoped<IBasketRepository, BasketRepository>();
         
         // Add MediatR handlers from this assembly.
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
