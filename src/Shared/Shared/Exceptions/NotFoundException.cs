@@ -28,7 +28,7 @@ public class NotFoundException : Exception
     /// // Output: Could not find Product with id: 42
     /// </code>
     /// </example>
-    public NotFoundException(string entityName, object key)
+    public NotFoundException(string entityName, object? key)
         : base($"Could not find {CleanEntityName(entityName)} with id: {key}")
     {
     }
