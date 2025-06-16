@@ -70,7 +70,7 @@ public class GetProductByIdHandler(CatalogDbContext dbContext)
                 p => p.Id == productId,
                 asNoTracking: true,
                 cancellationToken: cancellationToken,
-                key: query.ProductId
+                keyValue: query.ProductId
             );
 
         // Map product entity to ProductDto using Mapster
