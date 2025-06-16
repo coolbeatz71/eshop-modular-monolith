@@ -6,9 +6,14 @@ namespace EShop.Shared.Exceptions;
 public class NotFoundException : Exception
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="NotFoundException"/> class with a custom message.
+    /// Initializes a new instance of the <see cref="NotFoundException"/> class with a custom error message.
     /// </summary>
-    /// <param name="message">The error message that describes the missing resource.</param>
+    /// <param name="message">The message that describes the error.</param>
+    /// <example>
+    /// <code>
+    /// throw new NotFoundException("Custom not found message");
+    /// </code>
+    /// </example>
     public NotFoundException(string message) : base(message) { }
 
     /// <summary>
@@ -17,8 +22,32 @@ public class NotFoundException : Exception
     /// </summary>
     /// <param name="entityName">The name of the entity type.</param>
     /// <param name="key">The unique identifier of the entity that was not found.</param>
+    /// <example>
+    /// <code>
+    /// throw new NotFoundException("Product", 42);
+    /// // Output: Could not find Product with id: 42
+    /// </code>
+    /// </example>
     public NotFoundException(string entityName, object key)
         : base($"Could not find {CleanEntityName(entityName)} with id: {key}")
+    {
+    }
+    
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NotFoundException"/> class with an entity name, a key name, and a key value.
+    /// Useful for scenarios where the key is not just an ID (e.g., username, email).
+    /// </summary>
+    /// <param name="entityName">The name of the entity type.</param>
+    /// <param name="keyName">The name of the key or property used in the lookup.</param>
+    /// <param name="keyValue">The value of the key that was used to find the entity.</param>
+    /// <example>
+    /// <code>
+    /// throw new NotFoundException("Basket", "username", "jean.vincent");
+    /// // Output: Could not find Basket with username: jean.vincent
+    /// </code>
+    /// </example>
+    public NotFoundException(string entityName, string keyName, object keyValue)
+        : base($"Could not find {CleanEntityName(entityName)} with {keyName}: {keyValue}")
     {
     }
 
