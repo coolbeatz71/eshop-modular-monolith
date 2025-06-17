@@ -6,7 +6,14 @@ namespace EShop.Shared.Pagination;
 /// <typeparam name="TEntity">The type of items in the result set. Must be a reference type.</typeparam>
 /// <example>
 /// <code>
-/// var result = new PaginatedResult&lt;ProductDto&gt;(pageIndex: 1, pageSize: 10, count: 100, items: products);
+/// <![CDATA[
+/// var result = new PaginatedResult<ProductDto>(
+///     pageIndex: 1,
+///     pageSize: 10,
+///     count: 100,
+///     items: products
+/// );
+/// ]]>
 /// </code>
 /// </example>
 public class PaginatedResult<TEntity>(

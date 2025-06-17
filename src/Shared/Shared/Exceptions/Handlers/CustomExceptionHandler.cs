@@ -16,8 +16,10 @@ namespace EShop.Shared.Exceptions.Handlers;
 ///
 /// To enable this handler, register it in the service container and middleware pipeline:
 /// <code>
-/// builder.Services.AddExceptionHandler&lt;CustomExceptionHandler&gt;();
+/// <![CDATA[
+/// builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 /// app.UseExceptionHandler();
+/// ]]>
 /// </code>
 /// </remarks>
 public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IExceptionHandler

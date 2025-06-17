@@ -12,8 +12,10 @@ namespace EShop.Catalog.Domain.Products.Events;
 /// </remarks>
 /// <example>
 /// <code>
-/// product.Update("Laptop", "Desc", "img.jpg", 1499.99m, new List&lt;string&gt; { "Electronics" });
+/// <![CDATA[
+/// product.Update("Laptop", "Desc", "img.jpg", 1499.99m, new List<string> { "Electronics" });
 /// var domainEvent = new ProductPriceChangedEvent(product);
+/// ]]>
 /// </code>
 /// </example>
 public record ProductPriceChangedEvent(ProductEntity ProductEntity) : IDomainEvent;
