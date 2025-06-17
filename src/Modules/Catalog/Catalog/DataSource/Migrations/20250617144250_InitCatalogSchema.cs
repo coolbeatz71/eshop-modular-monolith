@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Catalog.DataSource.Migrations
+namespace EShop.Catalog.DataSource.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateProductTable : Migration
+    public partial class InitCatalogSchema : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
