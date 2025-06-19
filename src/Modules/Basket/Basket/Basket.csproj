@@ -13,7 +13,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Domain\Basket\Events\" />
-	  <Folder Include="Domain\Basket\UseCases\AddItemToBasket\" />
 	  <Folder Include="Domain\Basket\UseCases\CheckoutBasket\" />
 	  <Folder Include="Domain\Basket\UseCases\DeleteBasket\" />
 	  <Folder Include="Domain\Basket\UseCases\GetBasketById\" />
