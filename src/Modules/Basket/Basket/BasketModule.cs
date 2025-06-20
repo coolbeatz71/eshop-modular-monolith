@@ -27,15 +27,6 @@ public static class BasketModule
         // Register application UseCase services
         services.AddScoped<IBasketRepository, BasketRepository>();
         
-        // Add MediatR handlers from this assembly.
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-        services.AddMediatR(config =>
-        {
-            config.AddOpenBehavior(typeof(ValidationBehavior<,>));
-            config.AddOpenBehavior(typeof(LoggingBehavior<,>));
-            config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-        });
-        
         // Read DB connection info from environment.
         var (port, db, user, pass) = AppEnvironment.Database();
         var connectionString = $"Host=127.0.0.1;Port={port};Database={db};Username={user};Password={pass};";
