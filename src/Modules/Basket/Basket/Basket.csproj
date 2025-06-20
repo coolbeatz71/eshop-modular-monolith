@@ -14,7 +14,6 @@
 	<ItemGroup>
 	  <Folder Include="Domain\Basket\Events\" />
 	  <Folder Include="Domain\Basket\UseCases\CheckoutBasket\" />
-	  <Folder Include="Domain\Basket\UseCases\DeleteBasket\" />
 	  <Folder Include="Domain\Basket\UseCases\GetBasketById\" />
 	  <Folder Include="Domain\Basket\UseCases\RemoveItemFromBasket\" />
 	  <Folder Include="Domain\Basket\UseCases\UpdateItemPriceInBasket\" />
