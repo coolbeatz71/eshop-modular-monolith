@@ -14,6 +14,7 @@ public class AddItemToBasketValidator: AbstractValidator<AddItemToBasketCommand>
     /// </remarks>
     public AddItemToBasketValidator()
     {
+        RuleFor(x => x.UserName).NotEmpty().WithMessage("Username is required.");
         RuleFor(x => x.ShoppingCartItem)
             .SetValidator(new ShoppingCartItemDtoValidator());
     }
