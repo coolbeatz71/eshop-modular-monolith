@@ -1,7 +1,7 @@
-using EShop.Catalog.Products.Entities;
+using EShop.Catalog.Domain.Products.Entities;
 using EShop.Shared.Domain;
 
-namespace EShop.Catalog.Products.Events;
+namespace EShop.Catalog.Domain.Products.Events;
 
 /// <summary>
 /// Represents a domain event that is raised when the price of a <see cref="ProductEntity"/> changes.
@@ -12,8 +12,10 @@ namespace EShop.Catalog.Products.Events;
 /// </remarks>
 /// <example>
 /// <code>
-/// product.Update("Laptop", "Desc", "img.jpg", 1499.99m, new List&lt;string&gt; { "Electronics" });
+/// <![CDATA[
+/// product.Update("Laptop", "Desc", "img.jpg", 1499.99m, new List<string> { "Electronics" });
 /// var domainEvent = new ProductPriceChangedEvent(product);
+/// ]]>
 /// </code>
 /// </example>
 public record ProductPriceChangedEvent(ProductEntity ProductEntity) : IDomainEvent;

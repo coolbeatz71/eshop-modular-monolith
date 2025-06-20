@@ -1,13 +1,12 @@
 using Carter;
+using EShop.Catalog.Domain.Products.Dtos;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-using EShop.Catalog.Products.Dtos;
-
-namespace EShop.Catalog.Products.UseCases.UpdateProduct;
+namespace EShop.Catalog.Domain.Products.UseCases.UpdateProduct;
 
 /// <summary>
 /// Represents the request to update a product with new data.

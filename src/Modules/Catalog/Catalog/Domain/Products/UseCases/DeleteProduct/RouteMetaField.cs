@@ -1,6 +1,6 @@
 using EShop.Shared.Metadata;
 
-namespace EShop.Catalog.Products.UseCases.DeleteProduct;
+namespace EShop.Catalog.Domain.Products.UseCases.DeleteProduct;
 
 /// <summary>
 /// Contains metadata information for the product deletion route,

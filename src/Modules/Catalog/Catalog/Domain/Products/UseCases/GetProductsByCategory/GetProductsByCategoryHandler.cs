@@ -1,11 +1,11 @@
 using EShop.Catalog.DataSource;
-using EShop.Catalog.Products.Dtos;
+using EShop.Catalog.Domain.Products.Dtos;
 using EShop.Shared.CQRS;
 using EShop.Shared.Pagination;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
-namespace EShop.Catalog.Products.UseCases.GetProductsByCategory;
+namespace EShop.Catalog.Domain.Products.UseCases.GetProductsByCategory;
 
 /// <summary>
 /// Query to retrieve all products that belong to a specified category.

@@ -1,6 +1,6 @@
 using EShop.Shared.Metadata;
 
-namespace EShop.Catalog.Products.UseCases.UpdateProduct;
+namespace EShop.Catalog.Domain.Products.UseCases.UpdateProduct;
 
 /// <summary>
 /// Contains metadata information for the product update route,

@@ -19,7 +19,9 @@ public static class ApplicationBuilderExtension
     /// <returns>The same <see cref="IApplicationBuilder"/> instance for chaining.</returns>
     /// <example>
     /// <code>
-    /// app.UseMigration&lt;CatalogDbContext&gt;();
+    /// <![CDATA[
+    /// app.UseMigration<CatalogDbContext>();
+    /// ]]>
     /// </code>
     /// </example>
     public static IApplicationBuilder UseMigration<TContext>(this IApplicationBuilder app) 

@@ -1,7 +1,7 @@
 using EShop.Shared.Extensions;
 using FluentValidation;
 
-namespace EShop.Catalog.Products.UseCases.DeleteProduct;
+namespace EShop.Catalog.Domain.Products.UseCases.DeleteProduct;
 
 /// <summary>
 /// Validator for <see cref="DeleteProductCommand"/> that ensures the product data is valid.

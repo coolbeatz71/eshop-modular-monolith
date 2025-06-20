@@ -1,5 +1,5 @@
 using System.Reflection;
-using EShop.Catalog.Products.Entities;
+using EShop.Catalog.Domain.Products.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EShop.Catalog.DataSource;

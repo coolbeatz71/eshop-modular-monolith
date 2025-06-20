@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-using EShop.Shared.Exceptions;
-
-namespace EShop.Shared.Exceptions.Handler;
+namespace EShop.Shared.Exceptions.Handlers;
 
 /// <summary>
 /// Handles unhandled exceptions thrown in the application and returns structured <see cref="ProblemDetails"/> responses.
@@ -18,8 +16,10 @@ namespace EShop.Shared.Exceptions.Handler;
 ///
 /// To enable this handler, register it in the service container and middleware pipeline:
 /// <code>
-/// builder.Services.AddExceptionHandler&lt;CustomExceptionHandler&gt;();
+/// <![CDATA[
+/// builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 /// app.UseExceptionHandler();
+/// ]]>
 /// </code>
 /// </remarks>
 public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IExceptionHandler

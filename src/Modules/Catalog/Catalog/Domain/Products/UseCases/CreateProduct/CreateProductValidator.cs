@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace EShop.Catalog.Products.UseCases.CreateProduct;
+namespace EShop.Catalog.Domain.Products.UseCases.CreateProduct;
 
 /// <summary>
 /// Validator for <see cref="CreateProductCommand"/> that ensures the product data is valid.

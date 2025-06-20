@@ -1,12 +1,12 @@
 using Carter;
+using EShop.Catalog.Domain.Products.Dtos;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using EShop.Catalog.Products.Dtos;
 
-namespace EShop.Catalog.Products.UseCases.CreateProduct;
+namespace EShop.Catalog.Domain.Products.UseCases.CreateProduct;
 
 /// <summary>
 /// Represents the request to create a product, containing the product data.

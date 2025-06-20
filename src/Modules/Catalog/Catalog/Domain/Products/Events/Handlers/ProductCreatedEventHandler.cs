@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace EShop.Catalog.Products.Events.Handlers;
+namespace EShop.Catalog.Domain.Products.Events.Handlers;
 
 /// <summary>
 /// Handles the <see cref="ProductCreatedEvent"/> by logging when a new product is created.

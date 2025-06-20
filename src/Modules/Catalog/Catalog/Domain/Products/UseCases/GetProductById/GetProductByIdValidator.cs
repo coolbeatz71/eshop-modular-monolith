@@ -1,7 +1,7 @@
 using EShop.Shared.Extensions;
 using FluentValidation;
 
-namespace EShop.Catalog.Products.UseCases.GetProductById;
+namespace EShop.Catalog.Domain.Products.UseCases.GetProductById;
 
 /// <summary>
 /// Validator for <see cref="GetProductByIdQuery"/> that ensures the product data is valid.

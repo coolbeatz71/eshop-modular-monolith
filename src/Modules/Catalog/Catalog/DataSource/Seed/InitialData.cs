@@ -1,5 +1,5 @@
 using Bogus;
-using EShop.Catalog.Products.Entities;
+using EShop.Catalog.Domain.Products.Entities;
 
 namespace EShop.Catalog.DataSource.Seed;
 

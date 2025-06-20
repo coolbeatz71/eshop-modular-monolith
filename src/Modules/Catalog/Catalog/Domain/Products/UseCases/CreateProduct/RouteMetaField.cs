@@ -1,6 +1,6 @@
 using EShop.Shared.Metadata;
 
-namespace EShop.Catalog.Products.UseCases.CreateProduct;
+namespace EShop.Catalog.Domain.Products.UseCases.CreateProduct;
 
 /// <summary>
 /// Contains metadata information for the product creation route,

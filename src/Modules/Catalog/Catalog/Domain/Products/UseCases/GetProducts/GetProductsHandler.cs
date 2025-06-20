@@ -1,12 +1,11 @@
+using EShop.Catalog.DataSource;
+using EShop.Catalog.Domain.Products.Dtos;
+using EShop.Shared.CQRS;
+using EShop.Shared.Pagination;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
-using EShop.Catalog.DataSource;
-using EShop.Catalog.Products.Dtos;
-using EShop.Shared.CQRS;
-using EShop.Shared.Pagination;
-
-namespace EShop.Catalog.Products.UseCases.GetProducts;
+namespace EShop.Catalog.Domain.Products.UseCases.GetProducts;
 
 /// <summary>
 /// Query to retrieve a list of all products in the catalog.

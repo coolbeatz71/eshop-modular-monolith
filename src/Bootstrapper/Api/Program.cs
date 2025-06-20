@@ -1,5 +1,5 @@
 using Carter;
-using EShop.Shared.Exceptions.Handler;
+using EShop.Shared.Exceptions.Handlers;
 using EShop.Shared.Extensions;
 using Serilog;
 

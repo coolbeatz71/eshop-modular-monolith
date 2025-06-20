@@ -1,7 +1,7 @@
-using EShop.Catalog.Products.Events;
+using EShop.Catalog.Domain.Products.Events;
 using EShop.Shared.Domain;
 
-namespace EShop.Catalog.Products.Entities;
+namespace EShop.Catalog.Domain.Products.Entities;
 
 /// <summary>
 /// Represents a product in the catalog with support for domain events and state management.
@@ -50,14 +50,16 @@ public class ProductEntity : Aggregate<Guid>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="price"/> is negative.</exception>
     /// <example>
     /// <code>
+    /// <![CDATA[
     /// var product = ProductEntity.Create(
     ///     Guid.NewGuid(),
     ///     "Laptop",
     ///     "High-end gaming laptop",
     ///     "images/laptop.jpg",
     ///     1599.99m,
-    ///     new List&lt;string&gt; { "Electronics", "Computers" }
+    ///     new List<string> { "Electronics", "Computers" }
     /// );
+    /// ]]>
     /// </code>
     /// </example>
     public static ProductEntity Create(
@@ -98,13 +100,15 @@ public class ProductEntity : Aggregate<Guid>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="price"/> is negative.</exception>
     /// <example>
     /// <code>
+    /// <![CDATA[
     /// product.Update(
     ///     "Updated Laptop",
     ///     "Improved specs and performance",
     ///     "images/laptop-v2.jpg",
     ///     1699.99m,
-    ///     new List&lt;string&gt; { "Electronics", "Laptops" }
+    ///     new List<string> { "Electronics", "Laptops" }
     /// );
+    /// ]]>
     /// </code>
     /// </example>
     public void Update(
