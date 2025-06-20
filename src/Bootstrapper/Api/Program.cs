@@ -13,10 +13,16 @@ DotNetEnv.Env.Load();
 DotNetEnv.Env.TraversePath().Load();
 
 // Add services to the container.
-// Register Carter Assemblies
+// Register Carter and MediatR Assemblies
 var catalogAssembly = typeof(CatalogModule).Assembly;
 var basketAssembly = typeof(BasketModule).Assembly;
+
 builder.Services.AddCarterWithAssemblies(
+    catalogAssembly, 
+    basketAssembly
+);
+
+builder.Services.AddMediatRWithAssemblies(
     catalogAssembly, 
     basketAssembly
 );
