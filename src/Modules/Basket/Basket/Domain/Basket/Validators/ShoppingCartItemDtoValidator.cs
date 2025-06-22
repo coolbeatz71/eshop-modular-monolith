@@ -6,7 +6,7 @@ namespace EShop.Basket.Domain.Basket.Validators;
 public class ShoppingCartItemDtoValidator: AbstractValidator<ShoppingCartItemDto>
 {
     /// <summary>
-    /// Configure validation rules for the basket/shopping cart items properties.
+    /// Configure validation rules for the basket/shopping cart item properties.
     /// </summary>
     public ShoppingCartItemDtoValidator()
     {
