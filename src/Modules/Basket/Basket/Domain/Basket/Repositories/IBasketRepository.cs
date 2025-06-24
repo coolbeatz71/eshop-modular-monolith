@@ -1,8 +1,9 @@
 using EShop.Basket.Domain.Basket.Entities;
+using EShop.Shared.Domain;
 
 namespace EShop.Basket.Domain.Basket.Repositories;
 
-public interface IBasketRepository
+public interface IBasketRepository : IRepository<ShoppingCartEntity>
 {
     Task<ShoppingCartEntity> GetBasket(
         string userName, 
