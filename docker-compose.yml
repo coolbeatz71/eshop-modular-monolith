@@ -3,5 +3,7 @@ services:
         image: postgres
     seq:
         image: datalust/seq:latest
+    identity:
+        image: quay.io/keycloak/keycloak:26.3.0
 volumes:
     postgres_eshop_db:
