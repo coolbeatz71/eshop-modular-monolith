@@ -1,6 +1,7 @@
 using Carter;
 using EShop.Shared.Exceptions.Handlers;
 using EShop.Shared.Extensions;
+using Keycloak.AuthServices.Authentication;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,9 @@ builder.Services.AddMediatRWithAssemblies(
     basketAssembly
 );
 
+builder.Services.AddKeycloakWebApiAuthentication(builder.Configuration);
+builder.Services.AddAuthorization();
+
 builder.Services
     .AddCatalogModule(builder.Configuration)
     .AddBasketModule(builder.Configuration)
@@ -40,6 +44,8 @@ var app = builder.Build();
 app.MapCarter();
 app.UseSerilogRequestLogging();
 app.UseExceptionHandler(_ => { });
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Configure middleware extensions for catalog, basket and ordering modules.
 app
