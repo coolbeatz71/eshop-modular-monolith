@@ -1,12 +1,9 @@
-using System.Reflection;
 using EShop.Basket.DataSource;
 using EShop.Basket.DataSource.Repositories;
 using EShop.Basket.Domain.Basket.Repositories;
-using EShop.Shared.Behaviors;
 using EShop.Shared.Configurations;
 using EShop.Shared.DataSource.Extensions;
 using EShop.Shared.DataSource.Interceptors;
-using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -26,6 +23,7 @@ public static class BasketModule
         
         // Register application UseCase services
         services.AddScoped<IBasketRepository, BasketRepository>();
+        services.Decorate<IBasketRepository, CachedBasketRepository>();
         
         // Read DB connection info from environment.
         var (port, db, user, pass) = AppEnvironment.Database();
