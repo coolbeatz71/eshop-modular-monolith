@@ -8,6 +8,9 @@ namespace EShop.Shared.Domain.Specifications;
 public abstract class Specification<T> : ISpecification<T>
 {
     /// <inheritdoc />
+    public List<Expression<Func<T, object>>> Includes { get; } = [];
+    
+    /// <inheritdoc />
     public abstract Expression<Func<T, bool>> ToExpression();
 
     /// <inheritdoc />
@@ -15,6 +18,27 @@ public abstract class Specification<T> : ISpecification<T>
     {
         var predicate = ToExpression().Compile();
         return predicate(entity);
+    }
+    
+    /// <summary>
+    /// Adds a navigation property expression to the specification's include list.
+    /// </summary>
+    /// <param name="includeExpression">
+    /// An expression representing a navigation property to be eagerly loaded, 
+    /// typically used by ORMs such as Entity Framework (e.g., <c>x => x.Items</c>).
+    /// </param>
+    /// <remarks>
+    /// This method enables specifications to include related entities 
+    /// when constructing queries, helping to prevent lazy-loading or N+1 issues.
+    /// </remarks>
+    /// <example>
+    /// <code>
+    /// AddInclude(cart => cart.Items);
+    /// </code>
+    /// </example>
+    protected void AddInclude(Expression<Func<T, object>> includeExpression)
+    {
+        Includes.Add(includeExpression);
     }
 
     /// <summary>
