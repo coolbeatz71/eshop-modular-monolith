@@ -10,8 +10,10 @@ public static class SpecificationEvaluator
         bool asNoTracking = false
     ) where T : class
     {
-        var query = specification.Includes
-            .Aggregate(inputQuery, (current, include) => current.Include(include));
+        var query = specification.Includes.Aggregate(
+            inputQuery, 
+            (current, include) => current.Include(include)
+        );
         
         // Apply tracking behavior
         if (asNoTracking) query = query.AsNoTracking();
