@@ -1,3 +1,4 @@
+using EShop.Basket.DataSource.Specifications;
 using EShop.Basket.Domain.Basket.Dtos;
 using EShop.Basket.Domain.Basket.Repositories;
 using EShop.Shared.CQRS;
@@ -43,7 +44,8 @@ public class GetBasketHandler(IBasketRepository repository): IQueryHandler<GetBa
     public async Task<GetBasketResult> Handle(GetBasketQuery query, CancellationToken cancellationToken)
     {
         // Get basket by userName
-        var basket = await repository.GetBasket(query.UserName, true, cancellationToken);
+        var specification = new BasketByUserNameSpecification(query.UserName);
+        var basket = await repository.GetBasket(specification, true, cancellationToken);
         
         // Map basket entity to ShoppingCartDto
         var shoppingCartDto = basket.Adapt<ShoppingCartDto>();

@@ -1,3 +1,4 @@
+using EShop.Basket.DataSource.Specifications;
 using EShop.Basket.Domain.Basket.Repositories;
 using EShop.Shared.CQRS;
 
@@ -57,7 +58,8 @@ public class RemoveItemFromBasketHandler(IBasketRepository repository)
         CancellationToken cancellationToken
     )
     {
-        var shoppingCart = await repository.GetBasket(command.UserName, false, cancellationToken);
+        var specification = new BasketByUserNameSpecification(command.UserName);
+        var shoppingCart = await repository.GetBasket(specification, false, cancellationToken);
 
         shoppingCart.RemoveItem(command.ProductId);
 

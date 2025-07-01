@@ -1,3 +1,4 @@
+using EShop.Basket.DataSource.Specifications;
 using EShop.Basket.Domain.Basket.Repositories;
 using EShop.Shared.CQRS;
 
@@ -31,7 +32,8 @@ public class DeleteBasketHandler(IBasketRepository repository)
     /// </returns>
     public async Task<DeleteBasketResult> Handle(DeleteBasketCommand command, CancellationToken cancellationToken)
     {
-        await repository.DeleteBasket(command.UserName, cancellationToken);
+        var specification = new BasketByUserNameSpecification(command.UserName);
+        await repository.DeleteBasket(specification, cancellationToken);
         
         return new DeleteBasketResult(true);
     }
