@@ -1,4 +1,4 @@
-namespace EShop.Catalog.Domain.Products.Dtos;
+namespace EShop.Catalog.Contracts.Domain.Products.Dtos;
 
 /// <summary>
 /// Data Transfer Object (DTO) representing a product in the catalog.
