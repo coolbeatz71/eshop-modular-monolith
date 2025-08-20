@@ -1,5 +1,5 @@
+using EShop.Catalog.Contracts.Domain.Products.Dtos;
 using EShop.Catalog.DataSource;
-using EShop.Catalog.Domain.Products.Dtos;
 using EShop.Catalog.Domain.Products.Entities;
 using EShop.Shared.CQRS;
 
@@ -55,10 +55,10 @@ public class CreateProductHandler(CatalogDbContext dbContext)
     /// <returns>A <see cref="CreateProductResult"/> with the new product's ID.</returns>
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
-        // Create Product entity from command object
+        // Create Product entity from the command object
         var product = CreateNewProduct(command.Product);
 
-        // Save to database
+        // Save to the database
         dbContext.Products.Add(product);
         await dbContext.SaveChangesAsync(cancellationToken);
 

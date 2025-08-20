@@ -1,5 +1,5 @@
+using EShop.Catalog.Contracts.Domain.Products.Dtos;
 using EShop.Catalog.DataSource;
-using EShop.Catalog.Domain.Products.Dtos;
 using EShop.Catalog.Domain.Products.Entities;
 using EShop.Shared.CQRS;
 using EShop.Shared.DataSource.Extensions;
@@ -56,9 +56,15 @@ public class UpdateProductHandler(CatalogDbContext dbContext)
     /// <param name="command">The update product command with the new product data.</param>
     /// <param name="cancellationToken">Token to cancel the operation if needed.</param>
     /// <returns>A response indicating success of the update operation.</returns>
-    /// <exception cref="KeyNotFoundException">Thrown when the product with the specified ID is not found in the database.</exception>
-    /// <exception cref="ArgumentException">Thrown when required properties in the product DTO are null or empty.</exception>
-    /// <exception cref="ArgumentOutOfRangeException">Thrown when the product price is negative.</exception>
+    /// <exception cref="KeyNotFoundException">
+    /// Thrown when the product with the specified ID is not found in the database.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// Thrown when required properties in the product DTO are null or empty.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when the product price is negative.
+    /// </exception>
     public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
         var productId = Guid.Parse(command.ProductId);
@@ -82,8 +88,12 @@ public class UpdateProductHandler(CatalogDbContext dbContext)
     /// </summary>
     /// <param name="actualProduct">The existing product entity to update.</param>
     /// <param name="newProductDto">The product DTO containing updated values.</param>
-    /// <exception cref="ArgumentException">Thrown when <paramref name="newProductDto"/> contains null or empty <c>Name</c>.</exception>
-    /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="newProductDto"/> contains a negative <c>Price</c>.</exception>
+    /// <exception cref="ArgumentException">Thrown when
+    /// <paramref name="newProductDto"/> contains null or empty <c>Name</c>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when
+    /// <paramref name="newProductDto"/> contains a negative <c>Price</c>.
+    /// </exception>
     private static void UpdateProductWithNewValues(ProductEntity actualProduct, ProductDto newProductDto)
     {
         actualProduct.Update(
