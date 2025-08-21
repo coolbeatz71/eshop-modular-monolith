@@ -1,6 +1,6 @@
+using EShop.Catalog.Contracts.Domain.Products.Dtos;
 using EShop.Catalog.DataSource;
-using EShop.Catalog.Domain.Products.Dtos;
-using EShop.Shared.CQRS;
+using EShop.Shared.Contracts.CQRS;
 using EShop.Shared.Pagination;
 using Mapster;
 using Microsoft.EntityFrameworkCore;

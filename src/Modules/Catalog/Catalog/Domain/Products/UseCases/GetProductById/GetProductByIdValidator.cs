@@ -1,3 +1,4 @@
+using EShop.Catalog.Contracts.Domain.Products.UseCases.GetProductById;
 using EShop.Shared.Extensions;
 using FluentValidation;
 

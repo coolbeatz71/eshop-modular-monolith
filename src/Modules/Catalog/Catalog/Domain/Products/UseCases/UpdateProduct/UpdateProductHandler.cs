@@ -1,7 +1,7 @@
 using EShop.Catalog.Contracts.Domain.Products.Dtos;
 using EShop.Catalog.DataSource;
 using EShop.Catalog.Domain.Products.Entities;
-using EShop.Shared.CQRS;
+using EShop.Shared.Contracts.CQRS;
 using EShop.Shared.DataSource.Extensions;
 
 namespace EShop.Catalog.Domain.Products.UseCases.UpdateProduct;

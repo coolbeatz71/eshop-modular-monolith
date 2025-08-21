@@ -2,7 +2,7 @@ using EShop.Basket.DataSource.Specifications;
 using EShop.Basket.Domain.Basket.Dtos;
 using EShop.Basket.Domain.Basket.Repositories;
 using EShop.Catalog.Contracts.Domain.Products.UseCases.GetProductById;
-using EShop.Shared.CQRS;
+using EShop.Shared.Contracts.CQRS;
 using MediatR;
 
 namespace EShop.Basket.Domain.Basket.UseCases.AddItemToBasket;

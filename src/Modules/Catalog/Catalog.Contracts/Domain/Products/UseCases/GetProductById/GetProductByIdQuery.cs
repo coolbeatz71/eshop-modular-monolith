@@ -1,5 +1,5 @@
 using EShop.Catalog.Contracts.Domain.Products.Dtos;
-using EShop.Shared.CQRS;
+using EShop.Shared.Contracts.CQRS;
 
 namespace EShop.Catalog.Contracts.Domain.Products.UseCases.GetProductById;
 

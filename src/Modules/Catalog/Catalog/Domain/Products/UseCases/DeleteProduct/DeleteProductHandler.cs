@@ -1,5 +1,5 @@
 using EShop.Catalog.DataSource;
-using EShop.Shared.CQRS;
+using EShop.Shared.Contracts.CQRS;
 using EShop.Shared.DataSource.Extensions;
 using EShop.Shared.Exceptions;
 
