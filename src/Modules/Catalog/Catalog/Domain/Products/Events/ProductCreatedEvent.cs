@@ -1,5 +1,6 @@
 using EShop.Catalog.Domain.Products.Entities;
 using EShop.Shared.Domain;
+using MediatR;
 
 namespace EShop.Catalog.Domain.Products.Events;
 
