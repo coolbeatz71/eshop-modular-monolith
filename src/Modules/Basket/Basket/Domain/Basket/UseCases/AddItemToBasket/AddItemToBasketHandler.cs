@@ -1,3 +1,4 @@
+using EShop.Basket.DataSource.Specifications;
 using EShop.Basket.Domain.Basket.Dtos;
 using EShop.Basket.Domain.Basket.Repositories;
 using EShop.Catalog.Domain.Products.UseCases.GetProductById;
@@ -65,7 +66,9 @@ public class AddItemToBasketHandler(IBasketRepository repository, ISender sender
     public async Task<AddItemToBasketResult> Handle(AddItemToBasketCommand command, CancellationToken cancellationToken)
     {
         // Add shopping cart item into shopping cart
-        var shoppingCart = await repository.GetBasket(command.UserName, false, cancellationToken);
+        var specification = new BasketByUserNameSpecification(command.UserName);
+        
+        var shoppingCart = await repository.GetBasket(specification, false, cancellationToken);
         
         // Before AddItem into ShoppingCart, we should call Catalog Module GetProductByIdQuery method
         // Get latest product information and set Price and ProductName when adding item into Basket

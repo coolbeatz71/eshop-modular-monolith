@@ -31,6 +31,11 @@ services:
             - KEYCLOAK_HTTP_PORT=${KEYCLOAK_HTTP_PORT}
         restart: always
         ports:
-            -   "9090:9090"
+            - "9090:9090"
         command:
-            -   start-dev
+            - start-dev
+    distributed_cache:
+        container_name: distributed_cache
+        restart: always
+        ports:
+            - "6379:6379"

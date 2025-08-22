@@ -5,5 +5,7 @@ services:
         image: datalust/seq:latest
     identity:
         image: quay.io/keycloak/keycloak:26.3.0
+    distributed_cache:
+        image: redis
 volumes:
     postgres_eshop_db:

@@ -1,6 +1,8 @@
+using EShop.Basket.DataSource.Specifications;
 using EShop.Basket.Domain.Basket.Entities;
 using EShop.Basket.Domain.Basket.Repositories;
 using EShop.Shared.DataSource.Extensions;
+using EShop.Shared.Domain.Specifications;
 using EShop.Shared.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,33 +15,48 @@ namespace EShop.Basket.DataSource.Repositories;
 public class BasketRepository(BasketDbContext dbContext) : IBasketRepository
 {
     /// <summary>
-    /// Retrieves a user's basket by username. Throws a <see cref="NotFoundException"/> if not found.
+    /// Retrieves a user's basket based on the provided specification. 
+    /// Throws a <see cref="NotFoundException"/> if no matching basket is found.
     /// </summary>
-    /// <param name="userName">The username associated with the basket.</param>
-    /// <param name="asNoTracking">Whether to use AsNoTracking for read-only performance optimization.</param>
-    /// <param name="cancellationToken">Token to cancel the operation.</param>
-    /// <returns>The user's <see cref="ShoppingCartEntity"/>.</returns>
-    /// <exception cref="NotFoundException">Thrown if no basket is found for the specified username.</exception>
+    /// <param name="specification">
+    /// The <see cref="Specification{ShoppingCartEntity}"/> defining the criteria 
+    /// used to locate the basket (e.g., by username).
+    /// </param>
+    /// <param name="asNoTracking">
+    /// If <c>true</c>, the query is executed with no tracking for improved read-only performance.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// A <see cref="CancellationToken"/> to cancel the operation.
+    /// </param>
+    /// <returns>
+    /// The matching <see cref="ShoppingCartEntity"/> from the database.
+    /// </returns>
+    /// <exception cref="NotFoundException">
+    /// Thrown if no basket matches the specified criteria.
+    /// </exception>
     /// <example>
     /// <code>
-    /// var basket = await basketRepository.GetBasket("john.doe");
+    /// var specification = new BasketByUserNameSpecification("john.doe");
+    /// var basket = await basketRepository.GetBasket(specification);
     /// </code>
     /// </example>
     public async Task<ShoppingCartEntity> GetBasket(
-        string userName,
+        Specification<ShoppingCartEntity> specification,
         bool asNoTracking = true,
         CancellationToken cancellationToken = default
     )
     {
-        var query = dbContext.ShoppingCarts
-            .Include(x => x.Items)
-            .Where(x => x.UserName == userName);
+        var query = SpecificationEvaluator.GetQuery(
+            dbContext.ShoppingCarts, specification, asNoTracking
+        );
+        
+        var keyValue = (specification as BasketByUserNameSpecification)?.UserName;
 
         var basket = await query.SingleDefaultOrThrowAsync(
             asNoTracking: asNoTracking,
             cancellationToken: cancellationToken,
             keyName: "username",
-            keyValue: userName
+            keyValue: keyValue
         );
 
         return basket;
@@ -70,7 +87,10 @@ public class BasketRepository(BasketDbContext dbContext) : IBasketRepository
     /// <summary>
     /// Deletes a user's basket based on their username.
     /// </summary>
-    /// <param name="userName">The username whose basket is to be deleted.</param>
+    /// <param name="specification">
+    /// The <see cref="Specification{ShoppingCartEntity}"/> defining the criteria 
+    /// used to locate the basket (e.g., by username).
+    /// </param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns><c>true</c> if the basket was successfully deleted.</returns>
     /// <exception cref="NotFoundException">Thrown if no basket is found for the specified username.</exception>
@@ -80,11 +100,11 @@ public class BasketRepository(BasketDbContext dbContext) : IBasketRepository
     /// </code>
     /// </example>
     public async Task<bool> DeleteBasket(
-        string userName,
+        Specification<ShoppingCartEntity> specification,
         CancellationToken cancellationToken = default
     )
     {
-        var basket = await GetBasket(userName, false, cancellationToken);
+        var basket = await GetBasket(specification, false, cancellationToken);
 
         dbContext.ShoppingCarts.Remove(basket);
         await dbContext.SaveChangesAsync(cancellationToken);
