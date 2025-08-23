@@ -1,8 +1,8 @@
 using EShop.Basket.Domain.Basket.Dtos;
 using EShop.Basket.Domain.Basket.Entities;
 using EShop.Basket.Domain.Basket.Repositories;
-using EShop.Catalog.Domain.Products.UseCases.GetProductById;
-using EShop.Shared.CQRS;
+using EShop.Catalog.Contracts.Domain.Products.UseCases.GetProductById;
+using EShop.Shared.Contracts.CQRS;
 using EShop.Shared.Exceptions;
 using MediatR;
 

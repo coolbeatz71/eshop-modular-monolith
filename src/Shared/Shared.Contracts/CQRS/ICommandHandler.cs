@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace EShop.Shared.CQRS;
+namespace EShop.Shared.Contracts.CQRS;
 
 
 /// <summary>

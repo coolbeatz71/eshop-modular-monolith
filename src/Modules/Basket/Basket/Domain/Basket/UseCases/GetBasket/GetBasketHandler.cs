@@ -1,7 +1,7 @@
 using EShop.Basket.DataSource.Specifications;
 using EShop.Basket.Domain.Basket.Dtos;
 using EShop.Basket.Domain.Basket.Repositories;
-using EShop.Shared.CQRS;
+using EShop.Shared.Contracts.CQRS;
 using Mapster;
 
 namespace EShop.Basket.Domain.Basket.UseCases.GetBasket;

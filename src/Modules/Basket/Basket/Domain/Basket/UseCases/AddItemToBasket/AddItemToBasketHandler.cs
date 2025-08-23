@@ -1,8 +1,8 @@
 using EShop.Basket.DataSource.Specifications;
 using EShop.Basket.Domain.Basket.Dtos;
 using EShop.Basket.Domain.Basket.Repositories;
-using EShop.Catalog.Domain.Products.UseCases.GetProductById;
-using EShop.Shared.CQRS;
+using EShop.Catalog.Contracts.Domain.Products.UseCases.GetProductById;
+using EShop.Shared.Contracts.CQRS;
 using MediatR;
 
 namespace EShop.Basket.Domain.Basket.UseCases.AddItemToBasket;
@@ -71,7 +71,7 @@ public class AddItemToBasketHandler(IBasketRepository repository, ISender sender
         var shoppingCart = await repository.GetBasket(specification, false, cancellationToken);
         
         // Before AddItem into ShoppingCart, we should call Catalog Module GetProductByIdQuery method
-        // Get latest product information and set Price and ProductName when adding item into Basket
+        // Get the latest product information and set Price and ProductName when adding item into the Basket
         var productQuery = new GetProductByIdQuery(command.ShoppingCartItem.ProductId.ToString());
         var result = await sender.Send(productQuery, cancellationToken);
         
