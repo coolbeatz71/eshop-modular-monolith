@@ -107,7 +107,7 @@ public class CreateBasketHandlerTests : UnitTestBase
         var command = new CreateBasketCommand(shoppingCartDto);
 
         _mockSender.Setup(s => s.Send(It.IsAny<GetProductByIdQuery>(), It.IsAny<CancellationToken>()))
-                  .ReturnsAsync((GetProductByIdResult?)null);
+                  .ReturnsAsync(null as GetProductByIdResult);
 
         // Act & Assert
         var exception = await Assert.ThrowsAsync<NotFoundException>(() =>
@@ -175,8 +175,8 @@ public class CreateBasketHandlerTests : UnitTestBase
         // Assert
         result.ShouldNotBeNull();
         capturedBasket.ShouldNotBeNull();
-        capturedBasket.Items.ShouldHaveCount(2);
-        capturedBasket.UserName.ShouldBe(userName);
+        capturedBasket!.Items.ShouldHaveCount(2);
+        capturedBasket!.UserName.ShouldBe(userName);
         
         var expectedTotal = (2 * 50.00m) + (1 * 75.00m);
         capturedBasket.TotalPrice.ShouldBe(expectedTotal);
@@ -210,9 +210,9 @@ public class CreateBasketHandlerTests : UnitTestBase
         // Assert
         result.ShouldNotBeNull();
         capturedBasket.ShouldNotBeNull();
-        capturedBasket.Items.ShouldBeEmpty();
-        capturedBasket.UserName.ShouldBe(userName);
-        capturedBasket.TotalPrice.ShouldBe(0);
+        capturedBasket!.Items.ShouldBeEmpty();
+        capturedBasket!.UserName.ShouldBe(userName);
+        capturedBasket!.TotalPrice.ShouldBe(0);
 
         _mockSender.Verify(s => s.Send(It.IsAny<GetProductByIdQuery>(), It.IsAny<CancellationToken>()), Times.Never);
         _mockRepository.Verify(r => r.CreateBasket(It.IsAny<ShoppingCartEntity>(), It.IsAny<CancellationToken>()), Times.Once);

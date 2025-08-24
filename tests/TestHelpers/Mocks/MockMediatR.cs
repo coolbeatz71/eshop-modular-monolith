@@ -13,12 +13,14 @@ public static class MockMediatR
 
     public static Mock<ICommandHandler<TCommand, TResponse>> CreateCommandHandler<TCommand, TResponse>()
         where TCommand : ICommand<TResponse>
+        where TResponse : notnull
     {
         return new Mock<ICommandHandler<TCommand, TResponse>>();
     }
 
     public static Mock<IQueryHandler<TQuery, TResponse>> CreateQueryHandler<TQuery, TResponse>()
         where TQuery : IQuery<TResponse>
+        where TResponse : notnull
     {
         return new Mock<IQueryHandler<TQuery, TResponse>>();
     }
@@ -33,6 +35,7 @@ public static class MockMediatR
         this Mock<IMediator> mediatorMock,
         TResponse response)
         where TCommand : ICommand<TResponse>
+        where TResponse : notnull
     {
         mediatorMock.Setup(m => m.Send(It.IsAny<TCommand>(), It.IsAny<CancellationToken>()))
                    .ReturnsAsync(response);
@@ -42,6 +45,7 @@ public static class MockMediatR
         this Mock<IMediator> mediatorMock,
         TResponse response)
         where TQuery : IQuery<TResponse>
+        where TResponse : notnull
     {
         mediatorMock.Setup(m => m.Send(It.IsAny<TQuery>(), It.IsAny<CancellationToken>()))
                    .ReturnsAsync(response);

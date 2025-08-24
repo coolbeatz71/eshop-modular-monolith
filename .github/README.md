@@ -8,20 +8,7 @@ To run the CI/CD pipeline successfully, you need to configure the following secr
 
 ### Repository Settings > Secrets and variables > Actions
 
-1. **POSTGRES_PASSWORD**
-   - Description: Password for the PostgreSQL database used in testing
-   - Example value: `your-secure-postgres-password`
-   - Used by: Test services (PostgreSQL container)
-
-2. **TEST_DATABASE_CONNECTION_STRING**
-   - Description: Full connection string for the test database
-   - Example value: `Host=localhost;Port=5432;Database=eshop_test;Username=postgres;Password=your-secure-postgres-password`
-   - Used by: Integration tests
-
-3. **TEST_REDIS_CONNECTION_STRING**
-   - Description: Connection string for Redis cache used in testing
-   - Example value: `localhost:6379`
-   - Used by: Integration tests
+**Note**: The integration tests now use TestContainers which manage their own database and Redis containers automatically. No database connection secrets are required for basic CI/CD functionality.
 
 ### Optional: Coverage Badge Secrets (for automatic badge generation)
 
@@ -51,10 +38,11 @@ The GitHub Actions workflow consists of two main jobs:
 - Builds the solution in Release configuration
 
 ### Test Job
-- Sets up PostgreSQL and Redis services
-- Runs all unit tests for each module
-- Runs integration tests for the API
-- Uploads test results as artifacts
+- Sets up Docker for TestContainers
+- Runs all unit tests for each module with code coverage
+- Runs integration tests using TestContainers (PostgreSQL + Redis)
+- Generates comprehensive coverage reports
+- Uploads test results and coverage reports as artifacts
 
 ## Local Development
 

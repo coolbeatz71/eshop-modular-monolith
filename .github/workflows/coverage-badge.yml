@@ -87,6 +87,7 @@ jobs:
         
     - name: Create Coverage Badge
       uses: schneegans/dynamic-badges-action@v1.7.0
+      if: ${{ secrets.GIST_SECRET != '' && secrets.GIST_ID != '' }}
       with:
         auth: ${{ secrets.GIST_SECRET }}
         gistID: ${{ secrets.GIST_ID }}
