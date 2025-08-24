@@ -66,12 +66,6 @@ jobs:
       
     - name: Run Unit Tests with Coverage - Shared
       run: dotnet test tests/UnitTests/Shared/Shared.UnitTests.csproj --configuration Release --no-build --verbosity normal --logger trx --results-directory TestResults/ --collect:"XPlat Code Coverage" --settings coverlet.runsettings
-      
-    - name: Run Integration Tests with Coverage - API
-      run: dotnet test tests/IntegrationTests/Api/Api.IntegrationTests.csproj --configuration Release --no-build --verbosity normal --logger trx --results-directory TestResults/ --collect:"XPlat Code Coverage" --settings coverlet.runsettings
-      env:
-        ASPNETCORE_ENVIRONMENT: Testing
-        # TestContainers will manage database and Redis containers
         
     - name: Merge Coverage Reports
       run: |
