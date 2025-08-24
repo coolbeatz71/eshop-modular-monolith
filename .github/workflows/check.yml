@@ -71,27 +71,48 @@ jobs:
     - name: Build solution
       run: dotnet build src/eshop-modular-monoliths.sln --configuration Release --no-restore
       
-    - name: Run Unit Tests - TestHelpers
-      run: dotnet test tests/TestHelpers/TestHelpers.csproj --configuration Release --no-build --verbosity normal --logger trx --results-directory TestResults/
+    - name: Run Unit Tests with Coverage - TestHelpers
+      run: dotnet test tests/TestHelpers/TestHelpers.csproj --configuration Release --no-build --verbosity normal --logger trx --results-directory TestResults/ --collect:"XPlat Code Coverage" --settings coverlet.runsettings
       
-    - name: Run Unit Tests - Basket
-      run: dotnet test tests/UnitTests/Basket/Basket.UnitTests.csproj --configuration Release --no-build --verbosity normal --logger trx --results-directory TestResults/
+    - name: Run Unit Tests with Coverage - Basket
+      run: dotnet test tests/UnitTests/Basket/Basket.UnitTests.csproj --configuration Release --no-build --verbosity normal --logger trx --results-directory TestResults/ --collect:"XPlat Code Coverage" --settings coverlet.runsettings
       
-    - name: Run Unit Tests - Catalog
-      run: dotnet test tests/UnitTests/Catalog/Catalog.UnitTests.csproj --configuration Release --no-build --verbosity normal --logger trx --results-directory TestResults/
+    - name: Run Unit Tests with Coverage - Catalog
+      run: dotnet test tests/UnitTests/Catalog/Catalog.UnitTests.csproj --configuration Release --no-build --verbosity normal --logger trx --results-directory TestResults/ --collect:"XPlat Code Coverage" --settings coverlet.runsettings
       
-    - name: Run Unit Tests - Ordering
-      run: dotnet test tests/UnitTests/Ordering/Ordering.UnitTests.csproj --configuration Release --no-build --verbosity normal --logger trx --results-directory TestResults/
+    - name: Run Unit Tests with Coverage - Ordering
+      run: dotnet test tests/UnitTests/Ordering/Ordering.UnitTests.csproj --configuration Release --no-build --verbosity normal --logger trx --results-directory TestResults/ --collect:"XPlat Code Coverage" --settings coverlet.runsettings
       
-    - name: Run Unit Tests - Shared
-      run: dotnet test tests/UnitTests/Shared/Shared.UnitTests.csproj --configuration Release --no-build --verbosity normal --logger trx --results-directory TestResults/
+    - name: Run Unit Tests with Coverage - Shared
+      run: dotnet test tests/UnitTests/Shared/Shared.UnitTests.csproj --configuration Release --no-build --verbosity normal --logger trx --results-directory TestResults/ --collect:"XPlat Code Coverage" --settings coverlet.runsettings
       
-    - name: Run Integration Tests - API
-      run: dotnet test tests/IntegrationTests/Api/Api.IntegrationTests.csproj --configuration Release --no-build --verbosity normal --logger trx --results-directory TestResults/
+    - name: Run Integration Tests with Coverage - API
+      run: dotnet test tests/IntegrationTests/Api/Api.IntegrationTests.csproj --configuration Release --no-build --verbosity normal --logger trx --results-directory TestResults/ --collect:"XPlat Code Coverage" --settings coverlet.runsettings
       env:
         ASPNETCORE_ENVIRONMENT: Testing
         ConnectionStrings__DefaultConnection: ${{ secrets.TEST_DATABASE_CONNECTION_STRING }}
         ConnectionStrings__Redis: ${{ secrets.TEST_REDIS_CONNECTION_STRING }}
+        
+    - name: Merge Coverage Reports
+      run: |
+        dotnet tool install -g dotnet-reportgenerator-globaltool
+        reportgenerator "-reports:TestResults/**/coverage.cobertura.xml" "-targetdir:TestResults/CoverageReport" "-reporttypes:Html;Cobertura;Badges" "-title:EShop Coverage Report"
+        
+    - name: Generate Coverage Summary
+      run: |
+        echo "## 📊 Code Coverage Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        coverage_percent=$(grep -o 'line-rate="[^"]*"' TestResults/CoverageReport/Cobertura.xml | head -1 | grep -o '[0-9.]*' | awk '{printf "%.1f", $1*100}')
+        echo "**Overall Coverage:** ${coverage_percent}%" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "📈 Detailed coverage report available in artifacts" >> $GITHUB_STEP_SUMMARY
+        
+    - name: Upload Coverage Reports
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: coverage-reports
+        path: TestResults/CoverageReport/
         
     - name: Upload test results
       uses: actions/upload-artifact@v4

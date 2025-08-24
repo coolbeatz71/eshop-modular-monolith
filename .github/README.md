@@ -23,6 +23,18 @@ To run the CI/CD pipeline successfully, you need to configure the following secr
    - Example value: `localhost:6379`
    - Used by: Integration tests
 
+### Optional: Coverage Badge Secrets (for automatic badge generation)
+
+4. **GIST_SECRET**
+   - Description: Personal Access Token for updating GitHub Gist (for coverage badges)
+   - Scopes: `gist`
+   - Used by: Coverage badge workflow
+
+5. **GIST_ID**
+   - Description: GitHub Gist ID where coverage badge data will be stored
+   - Example value: `abcd1234efgh5678ijkl9012mnop3456`
+   - Used by: Coverage badge workflow
+
 ## How to Add Secrets
 
 1. Go to your GitHub repository
