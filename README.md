@@ -1,6 +1,6 @@
 # 🛒 EShop Modular Monolith
 
-[![Build Status](https://github.com/coolbeatz/EShopModularMonoliths/actions/workflows/check.yml/badge.svg)](https://github.com/coolbeatz/EShopModularMonoliths/actions/workflows/check.yml)
+[![Build Status](https://github.com/coolbeatz/EShopModularMonoliths/actions/workflows/check.yml/badge.svg)](https://github.com/coolbeatz71/eshop-modular-monolith/actions/workflows/check.yml)
 [![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/coolbeatz/e15310259cc658d6a944c06be508831e/raw/eshop-coverage.json)](https://github.com/coolbeatz/EShopModularMonoliths/actions/workflows/coverage-badge.yml)
 [![.NET](https://img.shields.io/badge/.NET-9.0-blue)](https://dotnet.microsoft.com/download/dotnet/9.0)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
