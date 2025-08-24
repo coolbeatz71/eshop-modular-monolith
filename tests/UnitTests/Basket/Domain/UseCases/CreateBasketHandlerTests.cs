@@ -29,9 +29,9 @@ public class CreateBasketHandlerTests : UnitTestBase
     {
         // Arrange
         var productId = Guid.NewGuid();
-        var userName = "testuser";
-        var quantity = 2;
-        var color = "Red";
+        const string userName = "testuser";
+        const int quantity = 2;
+        const string color = "Red";
         
         var productDto = ProductTestDataBuilder.New()
             .WithId(productId)
@@ -88,7 +88,7 @@ public class CreateBasketHandlerTests : UnitTestBase
     {
         // Arrange
         var productId = Guid.NewGuid();
-        var userName = "testuser";
+        const string userName = "testuser";
         
         var shoppingCartDto = new ShoppingCartDto
         {
@@ -106,7 +106,7 @@ public class CreateBasketHandlerTests : UnitTestBase
 
         var command = new CreateBasketCommand(shoppingCartDto);
 
-        _mockSender.Setup(s => s.Send(It.IsAny<GetProductByIdQuery>(), It.IsAny<CancellationToken>()))
+        _mockSender.Setup(s => s.Send(It.IsAny<GetProductByIdQuery>(), It.IsAny<CancellationToken>()))!
                   .ReturnsAsync(null as GetProductByIdResult);
 
         // Act & Assert
@@ -125,7 +125,7 @@ public class CreateBasketHandlerTests : UnitTestBase
         // Arrange
         var product1Id = Guid.NewGuid();
         var product2Id = Guid.NewGuid();
-        var userName = "testuser";
+        const string userName = "testuser";
         
         var product1 = ProductTestDataBuilder.New().WithId(product1Id).WithName("Product 1").WithPrice(50.00m).Build();
         var product2 = ProductTestDataBuilder.New().WithId(product2Id).WithName("Product 2").WithPrice(75.00m).Build();
@@ -178,7 +178,7 @@ public class CreateBasketHandlerTests : UnitTestBase
         capturedBasket!.Items.ShouldHaveCount(2);
         capturedBasket!.UserName.ShouldBe(userName);
         
-        var expectedTotal = (2 * 50.00m) + (1 * 75.00m);
+        const decimal expectedTotal = (2 * 50.00m) + (1 * 75.00m);
         capturedBasket.TotalPrice.ShouldBe(expectedTotal);
 
         _mockSender.Verify(s => s.Send(It.IsAny<GetProductByIdQuery>(), It.IsAny<CancellationToken>()), Times.Exactly(2));
@@ -189,7 +189,7 @@ public class CreateBasketHandlerTests : UnitTestBase
     public async Task Handle_WithEmptyItemsList_ShouldCreateEmptyBasket()
     {
         // Arrange
-        var userName = "testuser";
+        const string userName = "testuser";
         
         var shoppingCartDto = new ShoppingCartDto
         {
@@ -223,7 +223,7 @@ public class CreateBasketHandlerTests : UnitTestBase
     {
         // Arrange
         var productId = Guid.NewGuid();
-        var userName = "testuser";
+        const string userName = "testuser";
         
         var product = ProductTestDataBuilder.New().WithId(productId).Build();
 
